@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
     public Enemy target;
     // public Vector3 targetPoint; //do I need to do Enemy.getLocation() and calculate where the enemy will be based on projectile speed and enemy speed and initial locations of each?
     public float speed = 10.0f; //10.0f
-    public float inflictedDamage = 4.0f; //4.0f
+    public float damage;
    
     void Update()
     {
@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
 
         if (Vector3.Distance(transform.position, target.transform.position) < 0.1f)
         {
-            target.TakeDamage(inflictedDamage);
+            target.TakeDamage(damage);
             Destroy(gameObject);
         }
     }
