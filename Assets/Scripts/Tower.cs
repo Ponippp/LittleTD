@@ -69,6 +69,9 @@ public class Tower : MonoBehaviour
         return first;
     }
 
+    //polymorphism: Fire() will cause different behavior for different towers. One tower might fire
+    //a projectile, another tower might increase the fire rate of a different tower, another tower
+    //might lay spikes on the ground
     void Fire(Enemy target)
     {
         Projectile proj = Instantiate(
@@ -78,6 +81,6 @@ public class Tower : MonoBehaviour
         );
 
         proj.target = target;
-        proj.damage = inflictedDamage;
+        proj.damage = inflictedDamage; 
     }
 }
