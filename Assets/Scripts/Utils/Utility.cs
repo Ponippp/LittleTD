@@ -39,6 +39,7 @@ public static class Utility
 
     public static float CalculatePathLength(List<Vector3> path)
     {
+        if (path == null) return 0f;
         float totalDistance = 0f;
         for (int i = 0; i < path.Count - 1; i++)
         {

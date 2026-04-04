@@ -20,12 +20,20 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     public Projectile projectilePrefab;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private TowerState towerState = TowerState.IDLE;
 
     public float range = 2f;
     public float inflictedDamage = 4f;
     public float fireRate = 1f;
 
     float cooldown = 0f;
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        if (spriteRenderer == null) Debug.LogError("[Tower] No SpriteRenderer component found on this GameObject.");
+    }
 
     void Update()
     {
@@ -72,8 +80,11 @@ public class Tower : MonoBehaviour
     //polymorphism: Fire() will cause different behavior for different towers. One tower might fire
     //a projectile, another tower might increase the fire rate of a different tower, another tower
     //might lay spikes on the ground
+    public event System.Action OnFire;
+
     void Fire(Enemy target)
     {
+        OnFire?.Invoke();
         Projectile proj = Instantiate(
             projectilePrefab,
             transform.position,
@@ -81,6 +92,22 @@ public class Tower : MonoBehaviour
         );
 
         proj.target = target;
-        proj.damage = inflictedDamage; 
+        proj.damage = inflictedDamage;
     }
+
+
+
+    public float GetLookingDirection()
+    {
+        Enemy target = FindFirstEnemy();
+        if (target == null) return 0f;
+
+        Vector3 direction = target.transform.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        return (angle + 360f) % 360f; // Normalize to [0, 360)
+    }
+
+    public TowerState GetTowerState() { return towerState; }
+
+    public void SetSprite(Sprite sprite) { if (spriteRenderer != null) spriteRenderer.sprite = sprite; }
 }
