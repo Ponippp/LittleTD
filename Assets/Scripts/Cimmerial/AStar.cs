@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class AStar : MonoBehaviour
 {
-    
+
     //-+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- VARIABLES -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+-
 
     [Header("NODES")]
@@ -28,6 +28,7 @@ public class AStar : MonoBehaviour
     [SerializeField] private int _costOfHorizontal;
     [SerializeField] private int _weightOfGCost = 1;
     [SerializeField] private int _weightOfHCost = 1;
+    [SerializeField] private bool _diagonalMovementDisabled;
     //===================================================================================================================
     [Header("ASTAR DEBUG PREFERENCES")]
     [SerializeField] private bool _debuggingActive;
@@ -40,7 +41,7 @@ public class AStar : MonoBehaviour
     //===================================================================================================================
     [Header("REFERENCES")]
     [SerializeField] private Tilemap _floor;
-    
+
     //-+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- BASE FUNCTIONS -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+-
 
     private void OnEnable()
@@ -52,7 +53,7 @@ public class AStar : MonoBehaviour
         EventsManager.instance.gameEvents.OnSetupNewAStarGrid -= SetupAStar;
     }
 
-    
+
     //-+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- CLASS FUNCTIONS -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+-
 
     public void SetupAStar(int height, int width, Vector3 origin, Tilemap floor)
@@ -74,9 +75,9 @@ public class AStar : MonoBehaviour
 
                 if (_debuggingActive)
                 {
-                    _allNodes[x, y].f_cost_text = Utility.CreateWorldText((_allNodes[x, y].x + _allNodes[x, y].y).ToString(), null, _allNodes[x, y].F_cost().ToString(), GetWorldPos(x, y) + new Vector3(1, 1) * .5f, 250, Color.white, TextAnchor.MiddleCenter, TextAlignment.Center, 0, .015f);
-                    _allNodes[x, y].g_cost_text = Utility.CreateWorldText((_allNodes[x, y].x + _allNodes[x, y].y).ToString(), null, _allNodes[x, y].g_cost.ToString(), GetWorldPos(x, y) + new Vector3(.3f, .7f), 200, Color.white, TextAnchor.LowerRight, TextAlignment.Center, 0, 0.01f);
-                    _allNodes[x, y].h_cost_text = Utility.CreateWorldText((_allNodes[x, y].x + _allNodes[x, y].y).ToString(), null, _allNodes[x, y].h_cost.ToString(), GetWorldPos(x, y) + new Vector3(1, 1) * .7f, 200, Color.white, TextAnchor.LowerLeft, TextAlignment.Center, 0, 0.01f);
+                    _allNodes[x, y].f_cost_text = Utility.CreateWorldText((_allNodes[x, y].x + _allNodes[x, y].y).ToString(), null, _allNodes[x, y].F_cost().ToString(), GetWorldPos(x, y) + new Vector3(1, 1) * .5f, 225, Color.white, TextAnchor.MiddleCenter, TextAlignment.Center, 0, .015f);
+                    _allNodes[x, y].g_cost_text = Utility.CreateWorldText((_allNodes[x, y].x + _allNodes[x, y].y).ToString(), null, _allNodes[x, y].g_cost.ToString(), GetWorldPos(x, y) + new Vector3(.3f, .7f), 150, Color.white, TextAnchor.LowerRight, TextAlignment.Center, 0, 0.01f);
+                    _allNodes[x, y].h_cost_text = Utility.CreateWorldText((_allNodes[x, y].x + _allNodes[x, y].y).ToString(), null, _allNodes[x, y].h_cost.ToString(), GetWorldPos(x, y) + new Vector3(1, 1) * .7f, 150, Color.white, TextAnchor.LowerLeft, TextAlignment.Center, 0, 0.01f);
                     if (_allNodes[x, y].aStarState == AStarState.PERMA_UNTRAVERSABLE) SetNodeDebugTextColor(_allNodes[x, y], Color.black);
                     if (_allNodes[x, y].aStarState == AStarState.CURRENTLY_UNTRAVERSABLE) SetNodeDebugTextColor(_allNodes[x, y], Color.black);
                     if (_allNodes[x, y].aStarState == AStarState.UNTESTED) SetNodeDebugTextColor(_allNodes[x, y], Color.white);
@@ -124,7 +125,7 @@ public class AStar : MonoBehaviour
             if (_currentIterationCount > _maxIterationsAllowed) { Debug.Log("Exceeded maximum iterations"); return null; }
             // GET NEW CURRENT NODE
             _currentNode = GetNodeWithLowestF_Cost(_OPEN_nodes);
-            if (_currentNode == null) {  return null; } // Debug.Log($"nodeHashSet is empty on iteration: {_currentIterationCount}");
+            if (_currentNode == null) { return null; } // Debug.Log($"nodeHashSet is empty on iteration: {_currentIterationCount}");
             // UPDATE CURRENT NODE
             RemoveNodeFromOpenAddToClosed(_currentNode);
             // TRY RETURN
@@ -146,10 +147,13 @@ public class AStar : MonoBehaviour
                 // SKIP BAD NODES
                 if (neighbor.aStarState == AStarState.CURRENTLY_UNTRAVERSABLE) continue;
                 // TRY UPDATE NEIGHBORS
-                if (neighbor.aStarState != AStarState.OPEN || PathToNeighborIsShorter(_currentNode, neighbor, _targetNode))
+                int newGCostToNeighbor = _currentNode.g_cost + GetNodeG_Cost(neighbor, _currentNode);
+                // if (neighbor.aStarState != AStarState.OPEN || PathToNeighborIsShorter(_currentNode, neighbor, _targetNode))
+                if (neighbor.aStarState != AStarState.OPEN || newGCostToNeighbor < neighbor.g_cost)
                 {
                     // UPDATE NODE COSTS
-                    neighbor.g_cost = _weightOfGCost * (_currentNode.g_cost + GetNodeG_Cost(neighbor, _currentNode));
+                    // neighbor.g_cost = _weightOfGCost * (_currentNode.g_cost + GetNodeG_Cost(neighbor, _currentNode));
+                    neighbor.g_cost = newGCostToNeighbor;
                     neighbor.h_cost = _weightOfHCost * GetNodeH_Cost(neighbor, _targetNode);
                     if (_debuggingActive) UpdateNodeDebugText(neighbor);
                     // SET NEW PARENT
@@ -212,18 +216,22 @@ public class AStar : MonoBehaviour
         if (nextToBeAdded != null) neighbors.Add(nextToBeAdded);
         nextToBeAdded = GetGridNode(node.x + 1, node.y); // RIGHT
         if (nextToBeAdded != null) neighbors.Add(nextToBeAdded);
-        nextToBeAdded = GetGridNode(node.x + 1, node.y + 1); // UP RIGHT
-        if (nextToBeAdded != null) neighbors.Add(nextToBeAdded);
         nextToBeAdded = GetGridNode(node.x, node.y - 1); // DOWN
         if (nextToBeAdded != null) neighbors.Add(nextToBeAdded);
         nextToBeAdded = GetGridNode(node.x - 1, node.y); // LEFT
         if (nextToBeAdded != null) neighbors.Add(nextToBeAdded);
-        nextToBeAdded = GetGridNode(node.x - 1, node.y - 1); // DOWN LEFT
-        if (nextToBeAdded != null) neighbors.Add(nextToBeAdded);
-        nextToBeAdded = GetGridNode(node.x + 1, node.y - 1); // DOWN RIGHT
-        if (nextToBeAdded != null) neighbors.Add(nextToBeAdded);
-        nextToBeAdded = GetGridNode(node.x - 1, node.y + 1); // UP LEFT
-        if (nextToBeAdded != null) neighbors.Add(nextToBeAdded);
+        if (!_diagonalMovementDisabled)
+        {
+            nextToBeAdded = GetGridNode(node.x - 1, node.y - 1); // DOWN LEFT
+            if (nextToBeAdded != null) neighbors.Add(nextToBeAdded);
+            nextToBeAdded = GetGridNode(node.x + 1, node.y - 1); // DOWN RIGHT
+            if (nextToBeAdded != null) neighbors.Add(nextToBeAdded);
+            nextToBeAdded = GetGridNode(node.x - 1, node.y + 1); // UP LEFT
+            if (nextToBeAdded != null) neighbors.Add(nextToBeAdded);
+            nextToBeAdded = GetGridNode(node.x + 1, node.y + 1); // UP RIGHT
+            if (nextToBeAdded != null) neighbors.Add(nextToBeAdded);
+        }
+
         return neighbors;
     }
     public AStarNode GetGridNode(int x, int y)
@@ -307,9 +315,9 @@ public class AStar : MonoBehaviour
                         _allNodes[x, y].parent = null;
                         if (_debuggingActive)
                         {
-                            _allNodes[x, y].f_cost_text.text = "0";
-                            _allNodes[x, y].g_cost_text.text = "0";
-                            _allNodes[x, y].h_cost_text.text = "0";
+                            if (_allNodes[x, y].f_cost_text != null) _allNodes[x, y].f_cost_text.text = "0";
+                            if (_allNodes[x, y].g_cost_text != null) _allNodes[x, y].g_cost_text.text = "0";
+                            if (_allNodes[x, y].h_cost_text != null) _allNodes[x, y].h_cost_text.text = "0";
                             SetNodeDebugTextColor(_allNodes[x, y], Color.white);
                         }
                     }
@@ -400,16 +408,18 @@ public class AStar : MonoBehaviour
     //===================================================================================================================
     private void SetNodeDebugTextColor(AStarNode node, Color color)
     {
-        node.f_cost_text.color = color;
-        node.g_cost_text.color = color;
-        node.h_cost_text.color = color;
+        // Check if the text references are actually set before trying to access them!
+        if (node.f_cost_text != null) node.f_cost_text.color = color;
+        if (node.g_cost_text != null) node.g_cost_text.color = color;
+        if (node.h_cost_text != null) node.h_cost_text.color = color;
     }
+
     private void UpdateNodeDebugText(AStarNode node)
     {
         if (node == null) return;
-        node.g_cost_text.text = node.g_cost.ToString();
-        node.h_cost_text.text = node.h_cost.ToString();
-        node.f_cost_text.text = node.F_cost().ToString();
+        if (node.g_cost_text != null) node.g_cost_text.text = node.g_cost.ToString();
+        if (node.h_cost_text != null) node.h_cost_text.text = node.h_cost.ToString();
+        if (node.f_cost_text != null) node.f_cost_text.text = node.F_cost().ToString();
     }
     private void MakeTraversableIfTileNotNull(AStarNode node, Tilemap tilemap)
     {
@@ -419,7 +429,7 @@ public class AStar : MonoBehaviour
         {
             node.aStarState = AStarState.UNTESTED;
             if (Physics2D.OverlapCircle(worldPosition + new Vector3(.5f, .5f), .1f, Utility.WALL__LAYERMASK)) node.aStarState = AStarState.PERMA_UNTRAVERSABLE;
-            else if (Physics2D.OverlapCircle(worldPosition + new Vector3(.5f, .5f), .1f, Utility.OBSTACLE_INTERACTABLE__LAYERMASK))
+            else if (Physics2D.OverlapCircle(worldPosition + new Vector3(.5f, .5f), .1f, Utility.TOWER__LAYERMASK))
             {
                 node.aStarState = AStarState.CURRENTLY_UNTRAVERSABLE;
             }

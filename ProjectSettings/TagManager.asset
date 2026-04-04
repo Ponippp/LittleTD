@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags: []
   layers:
   - Default
@@ -11,10 +11,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Floor
+  - Wall
+  - Tower
+  - Projectile
   - 
   - 
   - 
@@ -41,3 +41,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Floor
+    uniqueID: 2528561643
+    locked: 0
+  - name: HeadLevel
+    uniqueID: 2901683327
+    locked: 0
+  - name: Debugging
+    uniqueID: 3691096797
+    locked: 0
+  m_RenderingLayers:
+  - Default

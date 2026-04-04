@@ -57,7 +57,7 @@ public class Tower : MonoBehaviour
             if (distToTower > range)
                 continue;
 
-            float distToGoal = e.DistanceToGoal();
+            float distToGoal = e.GetDistanceToGoal();
 
             if (distToGoal < closestToGoal)
             {

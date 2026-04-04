@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class AStarNode
 {
@@ -10,9 +11,9 @@ public class AStarNode
     public int g_cost;
     public int h_cost;
 
-    public TextMesh f_cost_text;
-    public TextMesh g_cost_text;
-    public TextMesh h_cost_text;
+    public TextMeshPro f_cost_text;
+    public TextMeshPro g_cost_text;
+    public TextMeshPro h_cost_text;
 
     public AStarNode(int x, int y, AStarState aStarState)
     {
