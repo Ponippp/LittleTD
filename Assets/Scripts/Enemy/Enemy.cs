@@ -30,6 +30,9 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
             Destroy(gameObject);
     }
+    public void SetMovementStrategy(IMovementStrategy movementStrategy) => _movementStrategy = movementStrategy;
+
+
     public float GetDistanceToGoal() => _movementStrategy.GetDistanceToGoal();
     public float GetHealth() => health;
     public float GetSpeed() => speed;
