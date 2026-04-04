@@ -1,0 +1,9 @@
+
+public enum AStarState
+{
+    OPEN,
+    CLOSED,
+    UNTESTED,
+    PERMA_UNTRAVERSABLE,
+    CURRENTLY_UNTRAVERSABLE
+}
