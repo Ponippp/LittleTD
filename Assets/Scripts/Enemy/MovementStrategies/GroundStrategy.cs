@@ -19,6 +19,7 @@ public class GroundStrategy : IMovementStrategy
     {
         AStarNode startNode = _astar.GetGridNode(_enemy.GetSpawnPoint());
         AStarNode targetNode = _astar.GetGridNode(_enemy.GetGoalPoint());
+        if (startNode == null || targetNode == null) return;
         _path = _astar.TryRunAStar(startNode, targetNode);
     }
 

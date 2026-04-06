@@ -13,12 +13,16 @@ public class Projectile : MonoBehaviour
     //     spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     // }
 
-    public void Initialize(float damage, float speed, IAimingStrategy strategy)
+    private System.Action<float> _onHitCallback;
+
+    public void Initialize(float damage, float speed, IAimingStrategy strategy, System.Action<float> onHitCallback = null)
     {
         this.damage = damage;
         this.speed = speed;
         this._strategy = strategy;
+        this._onHitCallback = onHitCallback;
     }
+
 
     // public void SetAimingStrategy(IAimingStrategy strategy)
     // {
@@ -29,11 +33,23 @@ public class Projectile : MonoBehaviour
     {
         if (_strategy == null) return;
 
+        if (ProjectileOutOfBounds())
+        {
+            DestoryProjectile();
+            return;
+        }
+
         Vector3 oldPosition = transform.position;
         _strategy.Move();
         Vector3 newPosition = transform.position;
 
         RotateToFaceMovementDirection((newPosition - oldPosition).normalized);
+    }
+
+    private bool ProjectileOutOfBounds()
+    {
+        Vector3 pos = transform.position;
+        return pos.x < Utility.LEVEL_BOUNDS_XMIN || pos.x > Utility.LEVEL_BOUNDS_XMAX || pos.y < Utility.LEVEL_BOUNDS_YMIN || pos.y > Utility.LEVEL_BOUNDS_YMAX;
     }
 
     private void RotateToFaceMovementDirection(Vector3 moveDir)
@@ -48,9 +64,15 @@ public class Projectile : MonoBehaviour
             if (other.TryGetComponent<Enemy>(out var enemy))
             {
                 enemy.TakeDamage(damage);
-                Destroy(gameObject);
+                _onHitCallback?.Invoke(damage);
+                DestoryProjectile();
             }
         }
+    }
+
+    public void DestoryProjectile()
+    {
+        Destroy(gameObject);
     }
 
     public float GetSpeed() => speed;

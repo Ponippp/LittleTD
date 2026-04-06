@@ -15,7 +15,7 @@ public class HomingStrategy : IAimingStrategy
     {
         if (_target == null)
         {
-            Object.Destroy(_projectile.gameObject);
+            _projectile.DestoryProjectile();
             return;
         }
 

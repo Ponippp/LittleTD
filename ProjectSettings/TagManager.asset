@@ -50,5 +50,8 @@ TagManager:
   - name: Debugging
     uniqueID: 3691096797
     locked: 0
+  - name: Flying
+    uniqueID: 3308575661
+    locked: 0
   m_RenderingLayers:
   - Default

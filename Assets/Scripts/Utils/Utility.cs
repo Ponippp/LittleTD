@@ -10,6 +10,11 @@ public static class Utility
     public static LayerMask TOWER__LAYERMASK;
     public static LayerMask ENEMY__LAYERMASK;
 
+    public const float LEVEL_BOUNDS_XMIN = -11f;
+    public const float LEVEL_BOUNDS_XMAX = 11f;
+    public const float LEVEL_BOUNDS_YMAX = 7f;
+    public const float LEVEL_BOUNDS_YMIN = -7f;
+
     public static void InitializeLayerMasks()
     {
         FLOOR__LAYERMASK = LayerMask.GetMask("Floor");
