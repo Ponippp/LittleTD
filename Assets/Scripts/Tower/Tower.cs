@@ -1,31 +1,21 @@
-// using UnityEngine;
-
-// public class Tower : MonoBehaviour
-// {
-//     public float range = 2.0f; 
-//     public float inflictedDamage = 4.0f; //4.0f
-
-// //    public FireProjectile projectile;
-// //     void Update()
-// //     {
-// //         if (Vector3.Distance(transform.position, target.transform.position) <= range)
-// //         {
-// //             projectile.Fire();
-// //         }
-// //     }
-// }
-
 using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    public Projectile projectilePrefab;
+    [Header("References")]
+    [SerializeField] public Projectile projectilePrefab;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private TowerState towerState = TowerState.IDLE;
 
-    public float range = 2f;
-    public float inflictedDamage = 4f;
-    public float fireRate = 1f;
+    [Header("Tower Stats")]
+    [SerializeField] private float range = 2f;
+    [SerializeField] private float fireInterval = 0.2f;
+    [Header("Tower Projectile Stats")]
+    [SerializeField] private float projectileSpeed = 30f;
+    [SerializeField] private float projectileDamage = 4f;
+    [SerializeField] private TowerProjectileAimingType towerProjectileAimingType = TowerProjectileAimingType.DIRECTED;
+    [SerializeField] private Vector2 projectileSpawnRingBottomOffset = new Vector2(0f, -0.2f);
+    [SerializeField] private float projectileSpawnRingRadius = 0.75f;
 
     float cooldown = 0f;
 
@@ -44,26 +34,22 @@ public class Tower : MonoBehaviour
         if (target != null && cooldown <= 0f)
         {
             Fire(target);
-            cooldown = 1f / fireRate;
+            cooldown = fireInterval;
         }
     }
 
-    Enemy FindFirstEnemy()
+    private Enemy FindFirstEnemy()
     {
-        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None); //FindObjectsSortMode.None makes it faster and not obsolete
+        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None); // FindObjectsSortMode.None makes it faster and not obsolete
 
         Enemy first = null;
         float closestToGoal = Mathf.Infinity;
 
         foreach (Enemy e in enemies)
         {
-            float distToTower = Vector3.Distance(
-                transform.position,
-                e.transform.position
-            );
+            float distToTower = Vector3.Distance(transform.position, e.transform.position);
 
-            if (distToTower > range)
-                continue;
+            if (distToTower > range) continue;
 
             float distToGoal = e.GetDistanceToGoal();
 
@@ -85,17 +71,32 @@ public class Tower : MonoBehaviour
     void Fire(Enemy target)
     {
         OnFire?.Invoke();
-        Projectile proj = Instantiate(
-            projectilePrefab,
-            transform.position,
-            Quaternion.identity
-        );
 
-        proj.target = target;
-        proj.damage = inflictedDamage;
+        Vector3 spawnPos = CalculateSpawnPosition(target);
+        Projectile proj = Instantiate(projectilePrefab, spawnPos, Quaternion.identity);
+
+        if (towerProjectileAimingType == TowerProjectileAimingType.HOMING)
+        {
+            proj.Initialize(projectileDamage, projectileSpeed, new HomingStrategy(proj, target));
+        }
+        else if (towerProjectileAimingType == TowerProjectileAimingType.DIRECTED)
+        {
+            proj.Initialize(projectileDamage, projectileSpeed, new DirectionalStrategy(proj, target, transform));
+        }
     }
 
+    /// <summary>
+    /// For visual clarity, we set projeciles' spawn positions to be right under the gun nozzle. This method calculates the current position of the nozzle.
+    /// </summary>
+    private Vector3 CalculateSpawnPosition(Enemy target)
+    {
+        Vector3 bottomPos = transform.position + (Vector3)projectileSpawnRingBottomOffset;
+        Vector3 ringCenter = bottomPos + (Vector3.up * projectileSpawnRingRadius);
 
+        Vector3 targetDir = (target.transform.position - transform.position).normalized;
+
+        return ringCenter + (targetDir * projectileSpawnRingRadius);
+    }
 
     public float GetLookingDirection()
     {

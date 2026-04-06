@@ -1,30 +1,58 @@
-//create reusable projectile object to hit the enemies while they move from A to B
-//consider using object pooling
-
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public Enemy target;
-    // public Vector3 targetPoint; //do I need to do Enemy.getLocation() and calculate where the enemy will be based on projectile speed and enemy speed and initial locations of each?
-    public float speed = 10.0f; //10.0f
-    public float damage;
-   
+    // [SerializeField] private SpriteRenderer spriteRenderer;
+    public float speed = 0;
+    public float damage = 0;
+
+    private IAimingStrategy _strategy;
+
+    // private void Awake()
+    // {
+    //     spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    // }
+
+    public void Initialize(float damage, float speed, IAimingStrategy strategy)
+    {
+        this.damage = damage;
+        this.speed = speed;
+        this._strategy = strategy;
+    }
+
+    // public void SetAimingStrategy(IAimingStrategy strategy)
+    // {
+    //     _strategy = strategy;
+    // }
+
     void Update()
     {
-        if (target == null)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        if (_strategy == null) return;
 
-        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+        Vector3 oldPosition = transform.position;
+        _strategy.Move();
+        Vector3 newPosition = transform.position;
 
-        if (Vector3.Distance(transform.position, target.transform.position) < 0.1f)
+        RotateToFaceMovementDirection((newPosition - oldPosition).normalized);
+    }
+
+    private void RotateToFaceMovementDirection(Vector3 moveDir)
+    {
+        if (moveDir != Vector3.zero) transform.up = -moveDir;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (((1 << other.gameObject.layer) & Utility.ENEMY__LAYERMASK) != 0)
         {
-            target.TakeDamage(damage);
-            Destroy(gameObject);
+            if (other.TryGetComponent<Enemy>(out var enemy))
+            {
+                enemy.TakeDamage(damage);
+                Destroy(gameObject);
+            }
         }
     }
+
+    public float GetSpeed() => speed;
 }
 

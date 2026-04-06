@@ -8,12 +8,14 @@ public static class Utility
     public static LayerMask FLOOR__LAYERMASK;
     public static LayerMask WALL__LAYERMASK;
     public static LayerMask TOWER__LAYERMASK;
+    public static LayerMask ENEMY__LAYERMASK;
 
     public static void InitializeLayerMasks()
     {
         FLOOR__LAYERMASK = LayerMask.GetMask("Floor");
         WALL__LAYERMASK = LayerMask.GetMask("Wall");
         TOWER__LAYERMASK = LayerMask.GetMask("Tower");
+        ENEMY__LAYERMASK = LayerMask.GetMask("Enemy");
     }
 
     public static TextMeshPro CreateWorldText(string objectName, Transform parent, string text, Vector3 localPosition, int fontSize, Color color, TextAnchor textAnchor, TextAlignment textAlignment, int sortingOrder, float localScale)

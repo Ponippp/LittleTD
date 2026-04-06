@@ -4,7 +4,7 @@ using UnityEngine;
 public class TowerAnimator : MonoBehaviour
 {
     [SerializeField] private string towerName;
-    [SerializeField] private float shootAnimationTime = 0.3f;
+    [SerializeField] private float shootAnimationTime = 0.1f;
     [SerializeField] private List<Sprite> idleSprites = new List<Sprite>();
     [SerializeField] private List<Sprite> shootSprites = new List<Sprite>();
     
