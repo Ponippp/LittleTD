@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1329700a12a4425586498c62b122331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerName: GigaGatling
   shootAnimationTime: 0.1
   idleSprites: []
   shootSprites: []
@@ -150,16 +149,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0551bdc62eafb64b815e0ead8d75f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerType: 0
+  towerName: GigaGatling
   projectilePrefab: {fileID: 7746970810035527769, guid: 8be5af060425e3948b471a941cc83b6e, type: 3}
   spriteRenderer: {fileID: 0}
-  towerState: 0
-  range: 6
-  fireInterval: 0.3
-  projectileSpeed: 15
-  projectileDamage: 5
-  towerProjectileAimingType: 0
-  projectileSpawnRingBottomOffset: {x: 0, y: -0.2}
-  projectileSpawnRingRadius: 0.75
+  stats:
+    range:
+      baseF: 0
+      boostF: 0
+      multiplierF: 1
+      multiplierDefaultIs0F: 0
+    fireInterval:
+      baseF: 0
+      boostF: 0
+      multiplierF: 1
+      multiplierDefaultIs0F: 0
+    towerState: 0
+    fireCooldown: 0
+    projectileStats:
+      speed:
+        baseF: 0
+        boostF: 0
+        multiplierF: 1
+        multiplierDefaultIs0F: 0
+      damage:
+        baseF: 0
+        boostF: 0
+        multiplierF: 1
+        multiplierDefaultIs0F: 0
+      aimingType: 0
+    visualStats:
+      fireAnimationTime: 0.1
+      projectileSpawnRingBottomOffset: {x: 0, y: -0.2}
+      projectileSpawnRingRadius: 0.75
+    recordStats:
+      totalDamageDealt: 0
+      isInitalized: 0
 --- !u!61 &8770863917566818583
 BoxCollider2D:
   m_ObjectHideFlags: 0

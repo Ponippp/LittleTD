@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewTowerData", menuName = "TD/TowerData")]
 public class TowerData : ScriptableObject
 {
+    public string towerName;
     [Header("Base Tower Stats")]
     public float baseRange = 2f;
     public float baseFireInterval = 0.2f;

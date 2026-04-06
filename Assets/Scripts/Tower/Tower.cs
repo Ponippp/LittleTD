@@ -6,13 +6,12 @@ public class Tower : MonoBehaviour
 {
     [Header("Type")]
     [SerializeField] private TowerType towerType;
+    
     [Header("References")]
     [SerializeField] public Projectile projectilePrefab;
     [SerializeField] private SpriteRenderer spriteRenderer;
-
     [Header("Runtime Stats (Auto-filled by Factory/Configure)")]
     [SerializeField] private TowerStats stats = new();
-
     [Serializable]
     public class TowerStats
     {
@@ -43,9 +42,11 @@ public class Tower : MonoBehaviour
         public class RecordStats
         {
             public float totalDamageDealt = 0;
+            public string towerName = "";
             public bool isInitalized = false;
         }
     }
+    public event Action OnFire;
 
     private void Awake()
     {
@@ -57,15 +58,16 @@ public class Tower : MonoBehaviour
     {
         stats = newStats;
         stats.fireCooldown = 0f;
+        stats.recordStats.isInitalized = true;
     }
 
-    void Update()
+    private void Update()
     {
         if (stats.fireCooldown > 0f) stats.fireCooldown -= Time.deltaTime;
 
         Enemy target = FindFirstEnemy();
 
-        if (target != null && stats.fireCooldown <= 0f)
+        if (stats.recordStats.isInitalized && target != null && stats.fireCooldown <= 0f)
         {
             Fire(target);
             stats.fireCooldown = stats.fireInterval.BaseBoostedF;
@@ -95,9 +97,6 @@ public class Tower : MonoBehaviour
 
         return first;
     }
-
-
-    public event Action OnFire;
 
     void Fire(Enemy target)
     {
@@ -143,9 +142,11 @@ public class Tower : MonoBehaviour
 
     public TowerState GetTowerState() { return stats.towerState; }
     public TowerType GetTowerType() { return towerType; }
+    public string GetTowerName() { return stats.recordStats.towerName; }
     public bool GetIsInitalized() { return stats.recordStats.isInitalized; }
 
     public void RecordDamageDealt(float damage) { stats.recordStats.totalDamageDealt += damage; }
 
     public void SetSprite(Sprite sprite) { if (spriteRenderer != null) spriteRenderer.sprite = sprite; }
+    public void SetColor(Color color) { if (spriteRenderer != null) spriteRenderer.color = color; }
 }

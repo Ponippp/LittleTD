@@ -30,4 +30,8 @@ public class GameManager : MonoBehaviour
 
     public Vector3 GetEnemySpawnPoint() => enemySpawnPoint;
     public Vector3 GetEnemyGoalPoint() => enemyGoalPoint;
+    public Tilemap GetFloorTilemap() => floorTilemap;
+    public int GetGridHeight() => gridHeight;
+    public int GetGridWidth() => gridWidth;
+    public Vector3 GetGridOffset() => gridOffset;
 }

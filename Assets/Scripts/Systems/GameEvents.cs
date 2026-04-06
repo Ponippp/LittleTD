@@ -9,4 +9,7 @@ public class GameEvents
     //===================================================================================================================
     public void SetupNewAStarGrid(int height, int width, Vector3 offset, Tilemap floor) { OnSetupNewAStarGrid?.Invoke(height, width, offset, floor); }
 
+    public event Action OnTowerGridUpdated;
+    public void TowerGridUpdated() { OnTowerGridUpdated?.Invoke(); }
+    //===================================================================================================================
 }

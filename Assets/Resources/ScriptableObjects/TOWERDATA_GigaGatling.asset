@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13aa233ec15e44f28a081965a38be696, type: 3}
   m_Name: TOWERDATA_GigaGatling
   m_EditorClassIdentifier: 
+  towerName: GigaGatling
   baseRange: 4
   baseFireInterval: 0.33
   baseProjectileSpeed: 15

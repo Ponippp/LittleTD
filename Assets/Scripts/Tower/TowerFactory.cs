@@ -22,15 +22,7 @@ public class TowerFactory : MonoBehaviour
         Tower[] towers = FindObjectsByType<Tower>(FindObjectsSortMode.None);
         foreach (Tower tower in towers)
         {
-            if (tower != null && !tower.GetIsInitalized()) tower.Initialize(CreateTowerData(GetDataByType(tower.GetTowerType())));
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            CreateTower(TowerType.GIGA_GATLING, new Vector2(2, -3));
+            if (tower != null && !tower.GetIsInitalized()) tower.Initialize(CreateTowerStats(GetDataByType(tower.GetTowerType())));
         }
     }
 
@@ -47,12 +39,12 @@ public class TowerFactory : MonoBehaviour
 
         Tower towerInstance = Instantiate(prefab, position, Quaternion.identity);
 
-        towerInstance.Initialize(CreateTowerData(data));
+        towerInstance.Initialize(CreateTowerStats(data));
 
         return towerInstance;
     }
 
-    private Tower.TowerStats CreateTowerData(TowerData data)
+    public Tower.TowerStats CreateTowerStats(TowerData data)
     {
         Tower.TowerStats stats = new();
         stats.range.baseF = data.baseRange;
@@ -65,28 +57,28 @@ public class TowerFactory : MonoBehaviour
         stats.visualStats.fireAnimationTime = data.fireAnimationTime;
         stats.visualStats.projectileSpawnRingBottomOffset = data.projectileSpawnRingBottomOffset;
         stats.visualStats.projectileSpawnRingRadius = data.projectileSpawnRingRadius;
+
+        stats.recordStats.towerName = data.towerName;
+
         return stats;
     }
 
-    private Tower GetPrefabByType(TowerType type)
+    public Tower GetPrefabByType(TowerType type)
     {
-        switch (type)
+        return type switch
         {
-            case TowerType.GIGA_GATLING:
-                return gigaGatlingPrefab;
-            default:
-                return null;
-        }
+            TowerType.GIGA_GATLING => gigaGatlingPrefab,
+            _ => null,
+        };
     }
 
-    private TowerData GetDataByType(TowerType type)
+    public TowerData GetDataByType(TowerType type)
     {
-        switch (type)
+        return type switch
         {
-            case TowerType.GIGA_GATLING:
-                return gigaGatlingData;
-            default:
-                return null;
-        }
+            TowerType.GIGA_GATLING => gigaGatlingData,
+            _ => null,
+        };
     }
+
 }

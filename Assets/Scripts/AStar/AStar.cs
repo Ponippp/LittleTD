@@ -108,11 +108,21 @@ public class AStar : MonoBehaviour
         // GUARD
         if (targetNode == null) { Debug.Log("target null"); return null; }
         if (startNode == null) { Debug.Log("startNode null"); return null; }
+        
         // VARS
         _currentIterationCount = 0;
         _startNode = startNode;
         _targetNode = targetNode;
+
+        // REMOVED AS WE ALREADY DO THIS IN ENEMY AND TOWER PLACEMENT CODE
         // SETUP START NODE
+        // Important: check if start itself is blocked by a tower/wall
+        // MakeTraversableIfTileNotNull(startNode, _floor);
+        // if (startNode.aStarState == AStarState.CURRENTLY_UNTRAVERSABLE || startNode.aStarState == AStarState.PERMA_UNTRAVERSABLE)
+        // {
+        //     return null;
+        // }
+
         _startNode.g_cost = _weightOfGCost * GetNodeG_Cost(startNode, startNode);
         _startNode.h_cost = _weightOfHCost * GetNodeH_Cost(startNode, targetNode);
         if (_debuggingActive) UpdateNodeDebugText(_startNode);

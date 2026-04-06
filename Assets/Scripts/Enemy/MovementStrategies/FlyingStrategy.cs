@@ -16,6 +16,11 @@ public class FlyingStrategy : IMovementStrategy
         );
     }
 
+    public void Cleanup()
+    {
+        // No cleanup needed for flying strategy
+    }
+
     public float GetDistanceToGoal() => Vector2.Distance(_enemy.transform.position, _enemy.GetGoalPoint());
 
 }

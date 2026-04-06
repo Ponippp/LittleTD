@@ -24,6 +24,11 @@ public class Enemy : MonoBehaviour
         _movementStrategy.Move();
     }
 
+    private void OnDestroy()
+    {
+        if (_movementStrategy != null) _movementStrategy.Cleanup();
+    }
+
     public void TakeDamage(float damage)
     {
         health -= damage;
@@ -31,8 +36,7 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
     }
     public void SetMovementStrategy(IMovementStrategy movementStrategy) => _movementStrategy = movementStrategy;
-
-
+    
     public float GetDistanceToGoal() => _movementStrategy.GetDistanceToGoal();
     public float GetHealth() => health;
     public float GetSpeed() => speed;

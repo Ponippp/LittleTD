@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class TowerAnimator : MonoBehaviour
 {
-    [SerializeField] private string towerName;
     [SerializeField] private float shootAnimationTime = 0.1f;
     [SerializeField] private List<Sprite> idleSprites = new List<Sprite>();
     [SerializeField] private List<Sprite> shootSprites = new List<Sprite>();
@@ -34,8 +33,8 @@ public class TowerAnimator : MonoBehaviour
 
     private void Start()
     {
-        idleSprites = SpriteLoader.instance.LoadTowerSprites(towerName, "IDLE");
-        shootSprites = SpriteLoader.instance.LoadTowerSprites(towerName, "SHOOT");
+        idleSprites = SpriteLoader.instance.LoadTowerSprites(tower.GetTowerName(), "IDLE");
+        shootSprites = SpriteLoader.instance.LoadTowerSprites(tower.GetTowerName(), "SHOOT");
     }
 
     private void Update()
