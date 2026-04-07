@@ -25,4 +25,5 @@ public enum TowerAimingType
     LAST,
     WEAKEST,
     SPIN, // doesnt aim, just spins and fires in any direction
+    // add more aiming types here like: random, etc
 }

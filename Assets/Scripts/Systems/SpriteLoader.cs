@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
+/// <summary>
+/// Gets sprites from Resources folder into arrays within GameObjects
+/// </summary>
 public class SpriteLoader : MonoBehaviour
 {
     public static SpriteLoader instance { get; private set; }

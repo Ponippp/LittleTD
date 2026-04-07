@@ -26,16 +26,12 @@ public class TowerPlacer : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            TogglePlacementMode();
-        }
+        if (Input.GetKeyDown(KeyCode.T)) TogglePlacementMode();
 
         if (_ghostTower != null)
         {
             UpdateGhostPosition();
-            
-            // Grid cell check
+
             Vector3Int currentGridPos = GameManager.instance.GetFloorTilemap().WorldToCell(_ghostTower.transform.position);
             if (currentGridPos != _lastGridPos)
             {
@@ -45,28 +41,16 @@ public class TowerPlacer : MonoBehaviour
 
             _ghostTower.SetColor(_lastValidity ? Color.white : Color.red);
 
-            if (_lastValidity && Input.GetMouseButtonDown(0))
-            {
-                PlaceTower();
-            }
+            if (_lastValidity && Input.GetMouseButtonDown(0)) PlaceTower();
 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                CancelPlacement();
-            }
+            if (Input.GetKeyDown(KeyCode.Escape)) CancelPlacement();
         }
     }
 
     private void TogglePlacementMode()
     {
-        if (_ghostTower == null)
-        {
-            StartPlacement(defaultTowerType);
-        }
-        else
-        {
-            CancelPlacement();
-        }
+        if (_ghostTower == null) StartPlacement(defaultTowerType);
+        else CancelPlacement();
     }
 
     private void StartPlacement(TowerType type)
@@ -85,7 +69,7 @@ public class TowerPlacer : MonoBehaviour
         mousePos.z = 0;
 
         Vector3 gridOffset = GameManager.instance.GetGridOffset();
-        
+
         // Find indices
         int xIndex = Mathf.FloorToInt(mousePos.x - gridOffset.x);
         int yIndex = Mathf.FloorToInt(mousePos.y - gridOffset.y);
@@ -95,11 +79,14 @@ public class TowerPlacer : MonoBehaviour
         _ghostTower.transform.position = snappedPos;
     }
 
+    /// <summary>
+    /// Must be on Floor tile, NOT on Wall tile, NOT overlapping another tower, and must NOT block all paths from spawn to goal.
+    /// </summary>
     private bool CheckPlacementValidity()
     {
         Vector3 pos = _ghostTower.transform.position;
-        
-        // IMPORTANT: Sync transforms so physics queries see the tower at its new snapped position
+
+        // Sync transforms so physics queries see the tower at its new snapped position
         Physics2D.SyncTransforms();
 
         // 1. Check Floor
@@ -120,7 +107,7 @@ public class TowerPlacer : MonoBehaviour
         // 4. Protection for Spawn and Goal
         Vector3 start = GameManager.instance.GetEnemySpawnPoint();
         Vector3 end = GameManager.instance.GetEnemyGoalPoint();
-        
+
         // Don't allow placing directly on start or end points
         if (Vector3.Distance(pos, start) < 0.5f || Vector3.Distance(pos, end) < 0.5f) return false;
 

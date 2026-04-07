@@ -3,6 +3,10 @@ using UnityEngine.UI;
 using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// Imported from BlackWinter. It is unchanged except for 'UpdateNames' method which I added for ease of use in the editor. 
+/// I am confident it works. Look to Projectile to see example usage of it.
+/// </summary>
 public static class ObjectPooler
 {
     public static Dictionary<string, Component> poolLookup = new Dictionary<string, Component>();
@@ -117,7 +121,6 @@ public static class ObjectPooler
         return poolMaxSizeDictionary[key] - poolDictionary[key].Count;
     }
 
-    // New methods for pool destruction
     public static void DestroyPool(string key)
     {
         if (!poolDictionary.ContainsKey(key))

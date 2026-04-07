@@ -26,11 +26,19 @@ public class GameManager : MonoBehaviour
     {
         if (instance != null) Destroy(instance);
         instance = this;
-        if (floorTilemap == null) { floorTilemap = FindAnyObjectByType<Tilemap>(); }
         Utility.InitializeLayerMasks();
+        SetupObjectPools();
+    }
+
+    private void SetupObjectPools()
+    {
         ObjectPooler.SetupPool(projectilePrefab.GetComponent<Projectile>(), 100, Utility.PROJECTILE_OBJECTPOOL_NAME);
     }
-    private IEnumerator Start()
+
+    /// <summary>
+    /// Is IEnumerator return type as to be able to stall a frame when setting up the A* grid.
+    /// </summary>
+    private IEnumerator Start() 
     {
         EventsManager.instance.gameEvents.SetupNewAStarGrid(gridHeight, gridWidth, gridOffset, floorTilemap);
         yield return null; // Wait one frame to ensure all objects (Enemies, Towers) have initialized and subscribed to events

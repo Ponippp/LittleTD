@@ -26,16 +26,19 @@ public static class Utility
         ENEMY__LAYERMASK = LayerMask.GetMask("Enemy");
     }
 
+
+    /// <summary>
+    /// Strictly a debugging function for running AStar with debugging ON. Shows the F, G and H costs of each Astar node using this function.
+    /// </summary>
     public static TextMeshPro CreateWorldText(string objectName, Transform parent, string text, Vector3 localPosition, int fontSize, Color color, TextAnchor textAnchor, TextAlignment textAlignment, int sortingOrder, float localScale)
     {
         GameObject gameObject = new GameObject(objectName, typeof(TextMeshPro));
         Transform transform = gameObject.transform;
-        transform.localScale = Vector3.one * localScale; // TMP has its own sizing
+        transform.localScale = Vector3.one * localScale;
         transform.SetParent(parent, false);
         transform.localPosition = localPosition;
         TextMeshPro textMesh = gameObject.GetComponent<TextMeshPro>();
 
-        // Set alignment and anchoring (TMP has different property names)
         textMesh.alignment = TextAlignmentOptions.Center;
         textMesh.text = text;
         textMesh.fontSize = fontSize;
@@ -51,12 +54,7 @@ public static class Utility
     {
         if (path == null) return 0f;
         float totalDistance = 0f;
-        for (int i = 0; i < path.Count - 1; i++)
-        {
-            totalDistance += Vector3.Distance(path[i], path[i + 1]);
-        }
+        for (int i = 0; i < path.Count - 1; i++) totalDistance += Vector3.Distance(path[i], path[i + 1]);
         return totalDistance;
     }
-
-
 }

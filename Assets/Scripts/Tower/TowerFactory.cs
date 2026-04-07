@@ -7,9 +7,12 @@ public class TowerFactory : MonoBehaviour
 
     [Header("Tower Prefabs")]
     [SerializeField] private Tower gigaGatlingPrefab;
+    // other tower prefabs would go here
 
     [Header("Tower Data (Defaults)")]
     [SerializeField] private TowerData gigaGatlingData;
+    // other tower data would go here
+
 
     private void Awake()
     {
