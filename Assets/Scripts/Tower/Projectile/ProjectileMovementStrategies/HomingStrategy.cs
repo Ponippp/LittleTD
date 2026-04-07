@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HomingStrategy : IAimingStrategy
+public class HomingStrategy : IProjectileMovementStrategy
 {
     private readonly Projectile _projectile;
     private readonly Enemy _target;
@@ -15,7 +15,7 @@ public class HomingStrategy : IAimingStrategy
     {
         if (_target == null)
         {
-            _projectile.DestoryProjectile();
+            _projectile.ResetAndEnqueueProjectile();
             return;
         }
 

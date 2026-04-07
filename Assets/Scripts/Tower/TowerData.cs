@@ -8,10 +8,14 @@ public class TowerData : ScriptableObject
     public float baseRange = 2f;
     public float baseFireInterval = 0.2f;
 
+    [Header("Aiming Stats")]
+    public TowerAimingType towerAimingType = TowerAimingType.FIRST;
+    public float baseRotationSpeedIfSpinningRadians = 0;
+
     [Header("Projectile Stats")]
     public float baseProjectileSpeed = 30f;
     public float baseProjectileDamage = 4f;
-    public TowerProjectileAimingType aimingType = TowerProjectileAimingType.DIRECTED;
+    public ProjectileMovementType projectileMovementType = ProjectileMovementType.DIRECTED;
 
     [Header("Visual Stats")]
     public float fireAnimationTime = 0.1f;

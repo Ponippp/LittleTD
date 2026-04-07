@@ -15,22 +15,33 @@ public class SpriteLoader : MonoBehaviour
     public List<Sprite> LoadTowerSprites(string towerName, string state)
     {
         string targetAssetName = $"{towerName}3D_{state}";
-
+        // Path should be relative to Resources, no extension
         string specificPath = $"Sprites/Towers/{towerName}/{targetAssetName}";
+        
+        // Resources.LoadAll on a specific file should return its sub-assets (the sprites)
         Sprite[] sprites = Resources.LoadAll<Sprite>(specificPath);
 
-        if (sprites == null || sprites.Length == 0)
+        if (sprites != null && sprites.Length > 0)
         {
-            Sprite[] allSprites = Resources.LoadAll<Sprite>("");
-            sprites = allSprites.Where(s => s.name.StartsWith(targetAssetName)).ToArray();
+            return sprites.OrderBy(s => ExtractNumber(s.name)).ToList();
         }
 
-        return sprites
-            .OrderBy(s =>
-            {
-                var match = System.Text.RegularExpressions.Regex.Match(s.name, @"(\d+)$");
-                return match.Success ? int.Parse(match.Value) : 0;
-            })
+        // Broad fallback if specific load fails
+        string folderPath = $"Sprites/Towers/{towerName}";
+        Sprite[] folderSprites = Resources.LoadAll<Sprite>(folderPath);
+        
+        // If they are just named "Frame_X", we have to guess or use the first half? 
+        // This usually means the specific load above should have worked if the importer is active.
+        return folderSprites
+            .Where(s => s.name.Contains(targetAssetName) || s.name.Contains(state))
+            .OrderBy(s => ExtractNumber(s.name))
             .ToList();
+    }
+
+    private int ExtractNumber(string name)
+    {
+        // Handles "Frame_1", "Giga_1", or just "1"
+        var match = System.Text.RegularExpressions.Regex.Match(name, @"(\d+)$");
+        return match.Success ? int.Parse(match.Value) : 0;
     }
 }

@@ -1,5 +1,5 @@
 
-public interface IMovementStrategy
+public interface IEnemyMovementStrategy
 {
     void Move();
     float GetDistanceToGoal();

@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour
     public float speed = 0;
     public float damage = 0;
 
-    private IAimingStrategy _strategy;
+    private IProjectileMovementStrategy _strategy;
 
     // private void Awake()
     // {
@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
 
     private System.Action<float> _onHitCallback;
 
-    public void Initialize(float damage, float speed, IAimingStrategy strategy, System.Action<float> onHitCallback = null)
+    public void Initialize(float damage, float speed, IProjectileMovementStrategy strategy, System.Action<float> onHitCallback = null)
     {
         this.damage = damage;
         this.speed = speed;
@@ -35,7 +35,7 @@ public class Projectile : MonoBehaviour
 
         if (ProjectileOutOfBounds())
         {
-            DestoryProjectile();
+            ResetAndEnqueueProjectile();
             return;
         }
 
@@ -65,14 +65,20 @@ public class Projectile : MonoBehaviour
             {
                 enemy.TakeDamage(damage);
                 _onHitCallback?.Invoke(damage);
-                DestoryProjectile();
+                ResetAndEnqueueProjectile();
             }
         }
     }
 
-    public void DestoryProjectile()
+    public void ResetAndEnqueueProjectile()
     {
-        Destroy(gameObject);
+        ObjectPooler.EnqueueObject(this, Utility.PROJECTILE_OBJECTPOOL_NAME);
+    }
+
+    private void Reset()
+    {
+        speed = 0;
+        damage = 0;
     }
 
     public float GetSpeed() => speed;

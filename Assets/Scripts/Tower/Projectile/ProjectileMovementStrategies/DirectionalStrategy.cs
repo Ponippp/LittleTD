@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class DirectionalStrategy : IAimingStrategy
+public class DirectionalStrategy : IProjectileMovementStrategy
 {
     private readonly Projectile _projectile;
     private readonly Vector3 _direction;
 
-    public DirectionalStrategy(Projectile projectile, Enemy target, Transform towerTransform)
+    public DirectionalStrategy(Projectile projectile, Vector3 target, Transform towerTransform)
     {
         _projectile = projectile;
-        _direction = (target.transform.position - towerTransform.position).normalized;
+        _direction = (target - towerTransform.position).normalized;
     }
 
     public void Move()

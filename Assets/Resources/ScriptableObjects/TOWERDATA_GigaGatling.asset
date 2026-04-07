@@ -15,9 +15,11 @@ MonoBehaviour:
   towerName: GigaGatling
   baseRange: 4
   baseFireInterval: 0.33
+  towerAimingType: 0
+  baseRotationSpeedIfSpinningRadians: 0
   baseProjectileSpeed: 15
   baseProjectileDamage: 3
-  aimingType: 0
+  projectileMovementType: 0
   fireAnimationTime: 0.1
   projectileSpawnRingBottomOffset: {x: 0, y: -0.2}
   projectileSpawnRingRadius: 0.75

@@ -10,10 +10,13 @@ public static class Utility
     public static LayerMask TOWER__LAYERMASK;
     public static LayerMask ENEMY__LAYERMASK;
 
-    public const float LEVEL_BOUNDS_XMIN = -11f;
-    public const float LEVEL_BOUNDS_XMAX = 11f;
-    public const float LEVEL_BOUNDS_YMAX = 7f;
-    public const float LEVEL_BOUNDS_YMIN = -7f;
+    public const float LEVEL_BOUNDS_XMIN = -10.5f;
+    public const float LEVEL_BOUNDS_XMAX = 10.5f;
+    public const float LEVEL_BOUNDS_YMAX = 6.5f;
+    public const float LEVEL_BOUNDS_YMIN = -6.5f;
+
+    public const string OBJECTPOOLS_PARENT_NAME = "ObjectPools";
+    public const string PROJECTILE_OBJECTPOOL_NAME = "Projectiles";
 
     public static void InitializeLayerMasks()
     {

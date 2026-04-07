@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundStrategy : IMovementStrategy
+public class GroundStrategy : IEnemyMovementStrategy
 {
     private List<Vector3> _path;
     private readonly AStar _astar;

@@ -1,15 +1,14 @@
 using System;
-using UnityEditor.UI;
 using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
     [Header("Type")]
     [SerializeField] private TowerType towerType;
-    
+
     [Header("References")]
-    [SerializeField] public Projectile projectilePrefab;
     [SerializeField] private SpriteRenderer spriteRenderer;
+
     [Header("Runtime Stats (Auto-filled by Factory/Configure)")]
     [SerializeField] private TowerStats stats = new();
     [Serializable]
@@ -19,27 +18,35 @@ public class Tower : MonoBehaviour
         public BaseBoostedFloat fireInterval = new();
         public TowerState towerState = TowerState.IDLE;
         public float fireCooldown = 0f;
-
-        public ProjectileStats projectileStats = new();
+        public Aiming aiming = new();
         [Serializable]
-        public class ProjectileStats
+        public class Aiming
+        {
+            public IAimingStrategy strategy;
+            public AimingResult currentResult;
+            public TowerAimingType type = TowerAimingType.FIRST;
+        }
+        public Projectile projectile = new();
+        [Serializable]
+        public class Projectile
         {
             public BaseBoostedFloat speed = new();
             public BaseBoostedFloat damage = new();
-            public TowerProjectileAimingType aimingType = TowerProjectileAimingType.DIRECTED;
+            public ProjectileMovementType movementType = ProjectileMovementType.DIRECTED;
         }
 
-        public VisualStats visualStats = new();
+        public Visual visual = new();
         [Serializable]
-        public class VisualStats
+        public class Visual
         {
             public float fireAnimationTime = 0.1f;
+            public BaseBoostedFloat rotationSpeed = new();
             public Vector2 projectileSpawnRingBottomOffset = new Vector2(0f, -0.2f);
             public float projectileSpawnRingRadius = 0.75f;
         }
-        public RecordStats recordStats = new();
+        public Record record = new();
         [Serializable]
-        public class RecordStats
+        public class Record
         {
             public float totalDamageDealt = 0;
             public string towerName = "";
@@ -58,94 +65,81 @@ public class Tower : MonoBehaviour
     {
         stats = newStats;
         stats.fireCooldown = 0f;
-        stats.recordStats.isInitalized = true;
+
+        stats.aiming.strategy = stats.aiming.type switch
+        {
+            TowerAimingType.FIRST => new FirstEnemyStrategy(),
+            TowerAimingType.CLOSEST => new ClosestEnemyStrategy(),
+            TowerAimingType.STRONGEST => new StrongestEnemyStrategy(),
+            TowerAimingType.LAST => new LastEnemyStrategy(),
+            TowerAimingType.WEAKEST => new WeakestEnemyStrategy(),
+            TowerAimingType.SPIN => new SpinStrategy(stats.visual.rotationSpeed.BaseBoostedF),
+            _ => new FirstEnemyStrategy(),
+        };
+
+        stats.record.isInitalized = true;
     }
 
     private void Update()
     {
+        if (!stats.record.isInitalized) return;
+        UpdateAiming();
+    }
+
+    private void UpdateAiming()
+    {
         if (stats.fireCooldown > 0f) stats.fireCooldown -= Time.deltaTime;
 
-        Enemy target = FindFirstEnemy();
+        stats.aiming.currentResult = stats.aiming.strategy.UpdateAiming(transform.position, stats.range.BaseBoostedF);
 
-        if (stats.recordStats.isInitalized && target != null && stats.fireCooldown <= 0f)
+        if (stats.aiming.currentResult.shouldFire && stats.fireCooldown <= 0f)
         {
-            Fire(target);
+            Fire(stats.aiming.currentResult);
             stats.fireCooldown = stats.fireInterval.BaseBoostedF;
         }
     }
 
-    private Enemy FindFirstEnemy()
-    {
-        Collider2D[] colliderInRanges = Physics2D.OverlapCircleAll(transform.position, stats.range.BaseBoostedF, Utility.ENEMY__LAYERMASK);
-
-        Enemy first = null;
-        float closestToGoal = Mathf.Infinity;
-
-        foreach (Collider2D col in colliderInRanges)
-        {
-            if (col.TryGetComponent<Enemy>(out var e))
-            {
-                float distToGoal = e.GetDistanceToGoal();
-
-                if (distToGoal < closestToGoal)
-                {
-                    closestToGoal = distToGoal;
-                    first = e;
-                }
-            }
-        }
-
-        return first;
-    }
-
-    void Fire(Enemy target)
+    private void Fire(AimingResult result)
     {
         OnFire?.Invoke();
 
-        Vector3 spawnPos = CalculateSpawnPosition(target);
-        Projectile proj = Instantiate(projectilePrefab, spawnPos, Quaternion.identity);
+        Vector3 spawnPos = CalculateProjectileSpawnPosition(result.targetPosition);
+        Projectile proj = ObjectPooler.DequeueObject<Projectile>(Utility.PROJECTILE_OBJECTPOOL_NAME);
+        proj.gameObject.SetActive(true);
+        proj.transform.position = spawnPos;
 
-        float dmg = stats.projectileStats.damage.BaseBoostedF;
-        float speed = stats.projectileStats.speed.BaseBoostedF;
-        TowerProjectileAimingType aimingType = stats.projectileStats.aimingType;
+        float dmg = stats.projectile.damage.BaseBoostedF;
+        float speed = stats.projectile.speed.BaseBoostedF;
+        ProjectileMovementType movementType = stats.projectile.movementType;
 
-        if (aimingType == TowerProjectileAimingType.HOMING)
+        if (movementType == ProjectileMovementType.HOMING && result.enemy != null)
         {
-            proj.Initialize(dmg, speed, new HomingStrategy(proj, target), RecordDamageDealt);
+            proj.Initialize(dmg, speed, new HomingStrategy(proj, result.enemy), RecordDamageDealt);
         }
-        else if (aimingType == TowerProjectileAimingType.DIRECTED)
+        else
         {
-            proj.Initialize(dmg, speed, new DirectionalStrategy(proj, target, transform), RecordDamageDealt);
+            proj.Initialize(dmg, speed, new DirectionalStrategy(proj, result.targetPosition, transform), RecordDamageDealt);
         }
-
     }
 
-    private Vector3 CalculateSpawnPosition(Enemy target)
+    private Vector3 CalculateProjectileSpawnPosition(Vector3 target)
     {
-        Vector3 bottomPos = transform.position + (Vector3)stats.visualStats.projectileSpawnRingBottomOffset;
-        Vector3 ringCenter = bottomPos + (Vector3.up * stats.visualStats.projectileSpawnRingRadius);
+        Vector3 bottomPos = transform.position + (Vector3)stats.visual.projectileSpawnRingBottomOffset;
+        Vector3 ringCenter = bottomPos + (Vector3.up * stats.visual.projectileSpawnRingRadius);
 
-        Vector3 targetDir = (target.transform.position - transform.position).normalized;
+        Vector3 targetDir = (target - transform.position).normalized;
 
-        return ringCenter + (targetDir * stats.visualStats.projectileSpawnRingRadius);
+        return ringCenter + (targetDir * stats.visual.projectileSpawnRingRadius);
     }
 
-    public float GetLookingDirection()
-    {
-        Enemy target = FindFirstEnemy();
-        if (target == null) return 0f;
-
-        Vector3 direction = target.transform.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        return (angle + 360f) % 360f;
-    }
+    public float GetLookingDirection() => stats.aiming.currentResult.lookingAngle;
 
     public TowerState GetTowerState() { return stats.towerState; }
     public TowerType GetTowerType() { return towerType; }
-    public string GetTowerName() { return stats.recordStats.towerName; }
-    public bool GetIsInitalized() { return stats.recordStats.isInitalized; }
+    public string GetTowerName() { return stats.record.towerName; }
+    public bool GetIsInitalized() { return stats.record.isInitalized; }
 
-    public void RecordDamageDealt(float damage) { stats.recordStats.totalDamageDealt += damage; }
+    public void RecordDamageDealt(float damage) { stats.record.totalDamageDealt += damage; }
 
     public void SetSprite(Sprite sprite) { if (spriteRenderer != null) spriteRenderer.sprite = sprite; }
     public void SetColor(Color color) { if (spriteRenderer != null) spriteRenderer.color = color; }

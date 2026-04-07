@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FlyingStrategy : IMovementStrategy
+public class FlyingStrategy : IEnemyMovementStrategy
 {
     private readonly Enemy _enemy;
     public FlyingStrategy(Enemy enemy)

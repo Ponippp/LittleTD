@@ -50,15 +50,18 @@ public class TowerFactory : MonoBehaviour
         stats.range.baseF = data.baseRange;
         stats.fireInterval.baseF = data.baseFireInterval;
 
-        stats.projectileStats.speed.baseF = data.baseProjectileSpeed;
-        stats.projectileStats.damage.baseF = data.baseProjectileDamage;
-        stats.projectileStats.aimingType = data.aimingType;
+        stats.aiming.type = data.towerAimingType;
 
-        stats.visualStats.fireAnimationTime = data.fireAnimationTime;
-        stats.visualStats.projectileSpawnRingBottomOffset = data.projectileSpawnRingBottomOffset;
-        stats.visualStats.projectileSpawnRingRadius = data.projectileSpawnRingRadius;
+        stats.projectile.speed.baseF = data.baseProjectileSpeed;
+        stats.projectile.damage.baseF = data.baseProjectileDamage;
+        stats.projectile.movementType = data.projectileMovementType;
 
-        stats.recordStats.towerName = data.towerName;
+        stats.visual.fireAnimationTime = data.fireAnimationTime;
+        stats.visual.rotationSpeed.baseF = data.baseRotationSpeedIfSpinningRadians;
+        stats.visual.projectileSpawnRingBottomOffset = data.projectileSpawnRingBottomOffset;
+        stats.visual.projectileSpawnRingRadius = data.projectileSpawnRingRadius;
+
+        stats.record.towerName = data.towerName;
 
         return stats;
     }

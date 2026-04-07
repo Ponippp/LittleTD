@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Vector3 spawnPoint;
     [SerializeField] private Vector3 goalPoint;
     [SerializeField] private EnemyMovementType movementType = EnemyMovementType.GROUND;
-    private IMovementStrategy _movementStrategy;
+    private IEnemyMovementStrategy _movementStrategy;
 
     private void Start()
     {
@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
             Destroy(gameObject);
     }
-    public void SetMovementStrategy(IMovementStrategy movementStrategy) => _movementStrategy = movementStrategy;
+    public void SetMovementStrategy(IEnemyMovementStrategy movementStrategy) => _movementStrategy = movementStrategy;
     
     public float GetDistanceToGoal() => _movementStrategy.GetDistanceToGoal();
     public float GetHealth() => health;

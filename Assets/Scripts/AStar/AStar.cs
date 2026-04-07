@@ -99,6 +99,7 @@ public class AStar : MonoBehaviour
     public List<Vector3> TryRunAStar(AStarNode startNode, AStarNode targetNode)
     {
         List<Vector3> ret = new();
+        Physics2D.SyncTransforms();
         ResetAStar();
         if (_runAStarInstantly) ret = RunAStar(startNode, targetNode);
         return ret;

@@ -4,11 +4,12 @@ using UnityEngine;
 public class TowerAnimator : MonoBehaviour
 {
     [SerializeField] private float shootAnimationTime = 0.1f;
-    [SerializeField] private List<Sprite> idleSprites = new List<Sprite>();
-    [SerializeField] private List<Sprite> shootSprites = new List<Sprite>();
-    
+    [SerializeField] private List<Sprite> idleSprites = new();
+    [SerializeField] private List<Sprite> shootSprites = new();
+
     private Tower tower;
     private float shootTimer = 0f;
+    private bool spritesLoaded = false;
 
     private void Awake()
     {
@@ -31,15 +32,14 @@ public class TowerAnimator : MonoBehaviour
         shootTimer = shootAnimationTime;
     }
 
-    private void Start()
-    {
-        idleSprites = SpriteLoader.instance.LoadTowerSprites(tower.GetTowerName(), "IDLE");
-        shootSprites = SpriteLoader.instance.LoadTowerSprites(tower.GetTowerName(), "SHOOT");
-    }
+    private void Start() => TryLoadSprites();
 
     private void Update()
     {
         if (tower == null) return;
+
+        // Ensure sprites are loaded once tower is initialized
+        if (!spritesLoaded && tower.GetIsInitalized()) TryLoadSprites();
 
         if (shootTimer > 0f) shootTimer -= Time.deltaTime;
 
@@ -51,28 +51,38 @@ public class TowerAnimator : MonoBehaviour
         tower.SetSprite(chosen);
     }
 
+    private void TryLoadSprites()
+    {
+        string towerName = tower.GetTowerName();
+        if (string.IsNullOrEmpty(towerName)) return;
+
+        idleSprites = SpriteLoader.instance.LoadTowerSprites(towerName, "IDLE");
+        shootSprites = SpriteLoader.instance.LoadTowerSprites(towerName, "SHOOT");
+
+        if (idleSprites.Count > 0)
+        {
+            spritesLoaded = true;
+            Debug.Log($"[TowerAnimator] Successfully loaded {idleSprites.Count} idle sprites for {towerName}");
+        }
+    }
+
     private List<Sprite> ResolveActiveSet()
     {
         if (shootTimer > 0f) return shootSprites;
         return idleSprites;
     }
 
-    /// <summary>
-    /// Select sprite based on the angle the tower is looking in.
-    /// </summary>
     private static Sprite SelectSprite(List<Sprite> sprites, float angle)
     {
         if (sprites.Count <= 1) return sprites.Count == 0 ? null : sprites[0];
 
+        // Adjust angle for sprite orientation (assuming 0 is Right, +90 is Up)
         angle = ((angle + 90f) % 360f + 360f) % 360f;
 
         float indexPerDegree = sprites.Count / 360f;
         int index = Mathf.RoundToInt(angle * indexPerDegree);
-        
-        // Wrap index around
-        index %= sprites.Count;
 
+        index %= sprites.Count;
         return sprites[index];
     }
-
 }
