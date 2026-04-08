@@ -103,6 +103,7 @@ public class Tower : MonoBehaviour
     {
         OnFire?.Invoke();
 
+        //purely for art; we want to spawn the projectile on the gun nozzle, and the gun nozzle is a different size+shape for different towers
         Vector3 spawnPos = CalculateProjectileSpawnPosition(result.targetPosition);
         Projectile proj = ObjectPooler.DequeueObject<Projectile>(Utility.PROJECTILE_OBJECTPOOL_NAME);
         proj.gameObject.SetActive(true);

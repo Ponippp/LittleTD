@@ -28,6 +28,7 @@
 - Tower range display
 - More tower types
 - Have tower/projectile art be stored in TowerData
+- Use template pattern for aiming strategies (all except spin strategy)
 #### Projectiles
 - ProjectileData
 - Have different projectiles for each tower (and maybe tier (easy))
@@ -55,9 +56,10 @@
 - At least 5 patterns
     - USING Strategy
     - USING Singleton
+    - USING Observer
     - WILL USE Composite (Tower, TowerUpgrade)
     - WILL USE Facade (GameManager)
-    - 
+    - WILL USE Template (TowerAimingStrategy)
 - Do we need tests? Coverage? Theres no way right? As many tests involve passing active Unity GameObjects through them and modifying them at runtime which wouldn't really work in the Scene view or Game view. hmm.
 
 ------------------------------------------------------------------

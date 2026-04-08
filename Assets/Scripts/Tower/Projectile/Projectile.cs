@@ -57,6 +57,7 @@ public class Projectile : MonoBehaviour
         if (moveDir != Vector3.zero) transform.up = -moveDir;
     }
 
+    // weird syntax to make this function more efficient since it is used a ton
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (((1 << other.gameObject.layer) & Utility.ENEMY__LAYERMASK) != 0)
@@ -64,7 +65,7 @@ public class Projectile : MonoBehaviour
             if (other.TryGetComponent<Enemy>(out var enemy))
             {
                 enemy.TakeDamage(damage);
-                _onHitCallback?.Invoke(damage);
+                _onHitCallback?.Invoke(damage); //?: if onhitcallback !=null, then invoke
                 ResetAndEnqueueProjectile();
             }
         }
@@ -72,6 +73,7 @@ public class Projectile : MonoBehaviour
 
     public void ResetAndEnqueueProjectile()
     {
+        Reset();
         ObjectPooler.EnqueueObject(this, Utility.PROJECTILE_OBJECTPOOL_NAME);
     }
 

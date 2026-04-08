@@ -47,6 +47,7 @@ public class TowerAnimator : MonoBehaviour
         if (activeSet == null || activeSet.Count == 0) return;
 
         float angle = tower.GetLookingDirection();
+        //there are 64 sprites for each tower, so it looks good when rotating, so this selects the sprite that is closest to the direction the tower is facing
         Sprite chosen = SelectSprite(activeSet, angle);
         tower.SetSprite(chosen);
     }
