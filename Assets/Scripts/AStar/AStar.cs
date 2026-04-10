@@ -9,6 +9,7 @@ public class AStar : MonoBehaviour
 
     //-+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- VARIABLES -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+- -+-
 
+    //serialize field private encapsulates data but creates fields in unity we can modify
     [Header("NODES")]
     [SerializeField] private AStarNode[,] _allNodes;
     [SerializeField] private HashSet<AStarNode> _OPEN_nodes;
@@ -46,6 +47,8 @@ public class AStar : MonoBehaviour
 
     private void OnEnable()
     {
+        //+= subscribes a func to the event, -= unsubscribes
+        //OnSetupNewAStarGrid is an action in gameEvents class, and the one instance of gameEvents is in EventsManager
         EventsManager.instance.gameEvents.OnSetupNewAStarGrid += SetupAStar;
     }
     private void OnDisable()
@@ -98,8 +101,8 @@ public class AStar : MonoBehaviour
     //===================================================================================================================
     public List<Vector3> TryRunAStar(AStarNode startNode, AStarNode targetNode)
     {
-        List<Vector3> ret = new();
-        Physics2D.SyncTransforms();
+        List<Vector3> ret = new(); //new() is shorthand for new List<Vector3>()
+        Physics2D.SyncTransforms(); //Physics2D runs on a set frame rate, but game runs on a modifiable frame rate. If we set game frame rate to be 2x Physics2D frame rate, we could be caught out of sync. This safeguards that
         ResetAStar();
         if (_runAStarInstantly) ret = RunAStar(startNode, targetNode);
         return ret;
@@ -249,7 +252,7 @@ public class AStar : MonoBehaviour
     {
         if (x >= 0 && y >= 0 && x < _nodeGridWidth && y < _nodeGridHeight)
         {
-            return _allNodes[x, y];
+            return _allNodes[x, y]; //return node (x, y) in the list _allNodes
         }
         return null;
     }
@@ -263,8 +266,12 @@ public class AStar : MonoBehaviour
     //===================================================================================================================
     // MISC
     //===================================================================================================================
-    private void GetXY(Vector3 worldPos, out int x, out int y)
+    private void GetXY(Vector3 worldPos, out int x, out int y) //out type in params is so we dont have to return a tuple; any changes made to x and y in this func propagate and are returned whne we use out data type
     {
+        //Floor(5.7)=5.0, but FloorToInt(5.7)=5
+        //by default, (0,0) in world grid is bottom left of our main camera because our grid is automatically made in only +x and +y directions.
+        //Because of this, we subtract gridOriginPosition to make (0,0) the center of our main camera
+        //.x and .y are methods of the Vector3 class that return the respective component of the vector
         x = Mathf.FloorToInt((worldPos - _gridOriginPosition).x);
         y = Mathf.FloorToInt((worldPos - _gridOriginPosition).y);
     }
@@ -290,7 +297,7 @@ public class AStar : MonoBehaviour
 
         int diagonalMoves = Math.Min(distanceX, distanceY); // MINIMUM NUMBER = MAX DIAG MOVES
         int horizontalMoves = Math.Abs(distanceX - distanceY); // LEFTOVER MOVES 
-
+        //diagonal functionality deprecated, still works, but we could modify this to make it simpler
         return diagonalMoves * _costOfDiagonal + horizontalMoves * _costOfHorizontal;
     }
     private int GetNodeH_Cost(AStarNode node, AStarNode endNode)
@@ -302,7 +309,7 @@ public class AStar : MonoBehaviour
 
         int diagonalMoves = Math.Min(distanceX, distanceY); // MINIMUM NUMBER = MAX DIAG MOVES
         int horizontalMoves = Math.Abs(distanceX - distanceY); // LEFTOVER MOVES 
-
+        //diagonal functionality deprecated, still works, but we could modify this to make it simpler
         return diagonalMoves * _costOfDiagonal + horizontalMoves * _costOfHorizontal;
     }
 
@@ -335,7 +342,7 @@ public class AStar : MonoBehaviour
                 }
             }
         }
-        _OPEN_nodes?.Clear();
+        _OPEN_nodes?.Clear(); //?.Clear() means only run Clear() if the thing before the . is not null
         _CLOSED_nodes?.Clear();
         _currentNode = null;
         _neighborNodes?.Clear();
@@ -378,7 +385,7 @@ public class AStar : MonoBehaviour
     //===================================================================================================================
     private List<AStarNode> GetQuickestPath(AStarNode finalNode)
     {
-        if (finalNode == null) return null;
+        if (finalNode == null) return null; //if finalnode is null, no hay path
         List<AStarNode> path = new();
         AStarNode current = finalNode;
         do
@@ -387,7 +394,7 @@ public class AStar : MonoBehaviour
             current = current.parent;
         }
         while (current != null && current.parent != null);
-        return path;
+        return path; //returns astar nodes
     }
     private List<Vector3> GetQuickestPositionPath(AStarNode finalNode)
     {
@@ -399,8 +406,8 @@ public class AStar : MonoBehaviour
             path.Add(new Vector3(current.x + .5f, current.y + .5f) + _gridOriginPosition);
             current = current.parent;
         }
-        while (current != null && current.parent != null);
-        return path;
+        while (current == null || current.parent == null);
+        return path; //returns physical points that the enemy has to traverse
     }
     private void LightUpPath(List<AStarNode> path)
     {
@@ -432,14 +439,20 @@ public class AStar : MonoBehaviour
         if (node.h_cost_text != null) node.h_cost_text.text = node.h_cost.ToString();
         if (node.f_cost_text != null) node.f_cost_text.text = node.F_cost().ToString();
     }
-    private void MakeTraversableIfTileNotNull(AStarNode node, Tilemap tilemap)
+    private void MakeTraversableIfTileNotNull(AStarNode node, Tilemap tilemap) //alt name:  MakeTileUntestedIfFloor
     {
         Vector3 worldPosition = GetWorldPos(node); // Get the node's world position
+        //World2Cell converts Vector3 to Vector3Int, so now you can only have vectors like <1,1,1> instead of <1.5,1.5,1.5>
         Vector3Int cellPosition = tilemap.WorldToCell(worldPosition); // Convert to tilemap cell position
-        if (tilemap.HasTile(cellPosition))
+        if (tilemap.HasTile(cellPosition)) //if there is a visible tile at cellPosition:
         {
             node.aStarState = AStarState.UNTESTED;
-            if (Physics2D.OverlapCircle(worldPosition + new Vector3(.5f, .5f), .1f, Utility.WALL__LAYERMASK)) node.aStarState = AStarState.PERMA_UNTRAVERSABLE;
+            //rn it's a vector3Int, so it's on the corner of 4 tiles. We add the 0.5 Vector3 offset so it's in the center of one tile. 
+            //Now the whole if statement says "if this tile overlaps w/ the wall layer, make the tile perma untraversable"
+            if (Physics2D.OverlapCircle(worldPosition + new Vector3(.5f, .5f), .1f, Utility.WALL__LAYERMASK))
+            {
+                node.aStarState = AStarState.PERMA_UNTRAVERSABLE;
+            } 
             else if (Physics2D.OverlapCircle(worldPosition + new Vector3(.5f, .5f), .1f, Utility.TOWER__LAYERMASK))
             {
                 node.aStarState = AStarState.CURRENTLY_UNTRAVERSABLE;
@@ -455,7 +468,7 @@ public class AStar : MonoBehaviour
             //     node.aStarState = AStarState.CURRENTLY_UNTRAVERSABLE;
             // }
         }
-        else
+        else //if there is no visible tile at cellPosition (outside of map):
         {
             node.aStarState = AStarState.PERMA_UNTRAVERSABLE;
             Destroy(node.f_cost_text);

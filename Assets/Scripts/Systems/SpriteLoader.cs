@@ -17,6 +17,7 @@ public class SpriteLoader : MonoBehaviour
 
     public List<Sprite> LoadTowerSprites(string towerName, string state)
     {
+        //access+load sprites from files
         string targetAssetName = $"{towerName}3D_{state}";
         string specificPath = $"Sprites/Towers/{towerName}/{targetAssetName}";
 

@@ -22,6 +22,7 @@ public class TowerFactory : MonoBehaviour
 
     private void Start()
     {
+        //returns all unity objects of type tower, doesn't sort them to save time
         Tower[] towers = FindObjectsByType<Tower>(FindObjectsSortMode.None);
         foreach (Tower tower in towers)
         {
@@ -71,6 +72,8 @@ public class TowerFactory : MonoBehaviour
 
     public Tower GetPrefabByType(TowerType type)
     {
+        //if tower type is giga gatling, ret gigagatling prefab, if it's any other type, ret null
+
         return type switch
         {
             TowerType.GIGA_GATLING => gigaGatlingPrefab,
@@ -80,6 +83,8 @@ public class TowerFactory : MonoBehaviour
 
     public TowerData GetDataByType(TowerType type)
     {
+        //if tower type is giga gatling, ret gigagatling data, if it's any other type, ret null
+
         return type switch
         {
             TowerType.GIGA_GATLING => gigaGatlingData,

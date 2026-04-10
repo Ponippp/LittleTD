@@ -75,6 +75,7 @@ public class TowerAnimator : MonoBehaviour
 
     private static Sprite SelectSprite(List<Sprite> sprites, float angle)
     {
+        //if no sprites, return null, if 1 sprite, return that sprite
         if (sprites.Count <= 1) return sprites.Count == 0 ? null : sprites[0];
 
         // Adjust angle for sprite orientation (assuming 0 is Right, +90 is Up)

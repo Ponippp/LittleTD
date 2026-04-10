@@ -95,6 +95,7 @@ public class Tower : MonoBehaviour
         if (stats.aiming.currentResult.shouldFire && stats.fireCooldown <= 0f)
         {
             Fire(stats.aiming.currentResult);
+            //reset fireCooldown
             stats.fireCooldown = stats.fireInterval.BaseBoostedF;
         }
     }
