@@ -79,3 +79,7 @@
     - Only implemented patterns so far: strategy (a lot), singleton, and whatever ObjectPooler falls under. 
     - **IDEA**  Thinking we should *skip decorator* as its just kind of an ugly strategy IMHO. We should sub it for the composite strategy as far as tower upgrades go, where each tower (even base) is an upgrade tier which has additive statistics and mechanics it builds from the root with. And each has multiple leaf/branches within it (the upgrade paths for towers).
 - What do you think about the internal class within Tower? I like to organize things that way due to cleaner hierarchy but it can be weird FS.
+
+### 4-9-26 THU
+- Large issues with the enemy animations. will deal with it another time. its shit as of rn but ill fix it at another time.
+

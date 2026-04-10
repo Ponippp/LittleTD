@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private string enemyName = "DefaultEnemy";
     [SerializeField] private float health = 10f;
     [SerializeField] private float speed = 2f;
     [SerializeField] private Vector3 spawnPoint;
@@ -40,6 +41,7 @@ public class Enemy : MonoBehaviour
     public float GetDistanceToGoal() => _movementStrategy.GetDistanceToGoal();
     public float GetHealth() => health;
     public float GetSpeed() => speed;
+    public string GetName() => enemyName;
     public Vector3 GetGoalPoint() => goalPoint;
     public Vector3 GetSpawnPoint() => spawnPoint;
 
