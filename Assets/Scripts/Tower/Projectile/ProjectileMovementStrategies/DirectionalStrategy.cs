@@ -5,10 +5,10 @@ public class DirectionalStrategy : IProjectileMovementStrategy
     private readonly Projectile _projectile;
     private readonly Vector3 _direction;
 
-    public DirectionalStrategy(Projectile projectile, Vector3 target, Transform towerTransform)
+    public DirectionalStrategy(Projectile projectile, Vector3 target, Vector3 origin)
     {
         _projectile = projectile;
-        _direction = (target - towerTransform.position).normalized;
+        _direction = (target - origin).normalized;
     }
 
     public void Move()

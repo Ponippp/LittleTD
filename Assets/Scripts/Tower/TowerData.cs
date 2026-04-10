@@ -1,10 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewTowerData", menuName = "TD/TowerData")]
+[CreateAssetMenu(fileName = "NewTowerData", menuName = "Bloodrush/TowerData")]
 public class TowerData : ScriptableObject
 {
     [Header("Base Tower Info")]
     public string towerName;
+    public TowerType towerType;
     // public string towerDescription; // for when hitting (i) button in-game. Should be appropriately vague.
     // public int towerCost = 650;
     // public TowerFootprint towerFootprint; // POSSIBLE NEW STAT, default to 1x1 but could have other options like 2x2 or 1x2, etc.
@@ -33,6 +34,7 @@ public class TowerData : ScriptableObject
     //      smaller. Ooh I like that. And we can just rename "baseRotationSpeedIfSpinningRadians" to "baseMaxRotationSpeedRadians". TODO
 
     [Header("Projectile Stats")] // TODO perhaps create a new "ProjectileData" scriptable object for this instead of having it all in TowerData, as then we can have more modularity and reuse of projectiles between towers, as well as easier creation of new projectiles without having to create a whole new tower. 
+    // public ProjectileData projectileData;
     public float baseProjectileSpeed = 30f;
     public float baseProjectileDamage = 4f;
     public ProjectileMovementType projectileMovementType = ProjectileMovementType.DIRECTED;

@@ -55,7 +55,7 @@ public class TowerPlacer : MonoBehaviour
 
     private void StartPlacement(TowerType type)
     {
-        Tower prefab = TowerFactory.Instance.GetPrefabByType(type);
+        Tower prefab = GameManager.instance.GetTowerPrefab().GetComponent<Tower>();
         if (prefab == null) return;
 
         _ghostTower = Instantiate(prefab);

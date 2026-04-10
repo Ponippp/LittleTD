@@ -5,8 +5,6 @@ public class TowerFactory : MonoBehaviour
 {
     public static TowerFactory Instance { get; private set; }
 
-    [Header("Tower Prefabs")]
-    [SerializeField] private Tower gigaGatlingPrefab;
     // other tower prefabs would go here
 
     [Header("Tower Data (Defaults)")]
@@ -32,7 +30,7 @@ public class TowerFactory : MonoBehaviour
 
     public Tower CreateTower(TowerType type, Vector2 position)
     {
-        Tower prefab = GetPrefabByType(type);
+        Tower prefab = GameManager.instance.GetTowerPrefab().GetComponent<Tower>();
         TowerData data = GetDataByType(type);
 
         if (prefab == null || data == null)
@@ -66,25 +64,14 @@ public class TowerFactory : MonoBehaviour
         stats.visual.projectileSpawnRingRadius = data.projectileSpawnRingRadius;
 
         stats.record.towerName = data.towerName;
+        stats.record.towerType = data.towerType;
 
         return stats;
-    }
-
-    public Tower GetPrefabByType(TowerType type)
-    {
-        //if tower type is giga gatling, ret gigagatling prefab, if it's any other type, ret null
-
-        return type switch
-        {
-            TowerType.GIGA_GATLING => gigaGatlingPrefab,
-            _ => null,
-        };
     }
 
     public TowerData GetDataByType(TowerType type)
     {
         //if tower type is giga gatling, ret gigagatling data, if it's any other type, ret null
-
         return type switch
         {
             TowerType.GIGA_GATLING => gigaGatlingData,

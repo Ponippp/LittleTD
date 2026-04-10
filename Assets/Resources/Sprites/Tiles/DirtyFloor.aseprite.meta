@@ -2237,9 +2237,9 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 16
-        y: 8
+        y: 7
         width: 144
-        height: 176
+        height: 177
       spriteId: a2c36fd170d3c4be9b23941c5cf4e758
     linkedCells: []
     parentIndex: -1

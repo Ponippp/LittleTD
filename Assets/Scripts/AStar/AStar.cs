@@ -406,7 +406,7 @@ public class AStar : MonoBehaviour
             path.Add(new Vector3(current.x + .5f, current.y + .5f) + _gridOriginPosition);
             current = current.parent;
         }
-        while (current == null || current.parent == null);
+        while (current != null && current.parent != null);
         return path; //returns physical points that the enemy has to traverse
     }
     private void LightUpPath(List<AStarNode> path)

@@ -21,6 +21,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Vector3 enemyGoalPoint;
     [Header("Prefabs")]
     [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject towerPrefab;
+    [SerializeField] private AnimatorOverrideController overrideController;
+
+    /// <summary>Template duplicated per enemy; assign EnemyAnimatorOverrideController in the inspector.</summary>
+    public static AnimatorOverrideController EnemyAnimatorOverrideTemplate => instance != null ? instance.overrideController : null;
 
     private void Awake()
     {
@@ -48,6 +53,8 @@ public class GameManager : MonoBehaviour
     public Vector3 GetEnemySpawnPoint() => enemySpawnPoint;
     public Vector3 GetEnemyGoalPoint() => enemyGoalPoint;
     public Tilemap GetFloorTilemap() => floorTilemap;
+    public GameObject GetTowerPrefab() => towerPrefab;
+    public AnimatorOverrideController GetAnimatorOverrideController() => overrideController;
     public int GetGridHeight() => gridHeight;
     public int GetGridWidth() => gridWidth;
     public Vector3 GetGridOffset() => gridOffset;

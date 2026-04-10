@@ -1,158 +1,153 @@
 // Assets/Scripts/Enemy/EnemyAnimator.cs
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
+/// <summary>
+/// Drives enemy locomotion via Animator + duplicated AnimatorOverrideController.
+/// Per-enemy clips come from Resources (see SpriteLoader.LoadEnemyRunClips); base controller uses placeholders named Enemy_RUN_DOWN / Enemy_RUN_UP / Enemy_RUN_RIGHT.
+/// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
 public class EnemyAnimator : MonoBehaviour
 {
+    public const string RunStateName = "RUN";
+    public const string SpeedParam = "Speed";
+    public const string BlendXParam = "BlendX";
+    public const string BlendYParam = "BlendY";
+
     [Header("Animation")]
-    [Tooltip("Playback speed as a percentage. 100 = normal, 200 = double speed, 50 = half speed.")]
+    [Tooltip("Scales animator Speed parameter. 100 = 1.0 on the animator.")]
     [Range(0f, 200f)]
     [SerializeField] private float playbackSpeed = 100f;
 
-    [Tooltip("Base frames per second defined in Aseprite.")]
-    [SerializeField] private float baseFps = 12f;
-
-    [Header("Frame Ranges (inclusive, matches Frame_N numbers)")]
-    [SerializeField] private int runDownFrom = 1;
-    [SerializeField] private int runDownTo = 5;
-    [SerializeField] private int runUpFrom = 8;
-    [SerializeField] private int runUpTo = 13;
-    [SerializeField] private int runRightFrom = 16;
-    [SerializeField] private int runRightTo = 21;
-
-    // ── Private state ─────────────────────────────────────────────────────────
+    private static readonly int SpeedHash = Animator.StringToHash(SpeedParam);
+    private static readonly int BlendXHash = Animator.StringToHash(BlendXParam);
+    private static readonly int BlendYHash = Animator.StringToHash(BlendYParam);
 
     private SpriteRenderer _spriteRenderer;
+    private Animator _animator;
     private Enemy _enemy;
 
-    private SpriteLoader.EnemyAnimations _anims;
-    private bool _animsLoaded = false;
-
-    private EnemyDirection _currentDirection = EnemyDirection.Down;
-    private float _frameProgress = 0f;
-    private float _frameTimer = 0f;
-
+    private AnimatorOverrideController _runtimeOverride;
+    private bool _initialized;
     private Vector3 _previousPosition;
-
-    private enum EnemyDirection { Up, Down, Right, Left }
+    private Vector2 _blend = new Vector2(0f, -1f);
 
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
         _enemy = GetComponentInParent<Enemy>();
-        if (_enemy == null) Debug.LogError("[EnemyAnimator] No Enemy component found.");
     }
 
     private void Start()
     {
         _previousPosition = transform.position;
-        TryLoadAnimations();
+        TryInitializeAnimator();
     }
 
     private void Update()
     {
-        if (!_animsLoaded)
+        if (!_initialized)
         {
-            TryLoadAnimations();
+            TryInitializeAnimator();
             return;
         }
 
-        UpdateDirection();
-        AdvanceFrame();
-        ApplyFrame();
-    }
-
-    private void TryLoadAnimations()
-    {
-        if (SpriteLoader.instance == null) return;
-
-        string enemyName = _enemy.GetName().Replace("(Clone)", "").Trim();
-
-        _anims = SpriteLoader.instance.LoadEnemySprites(
-            enemyName,
-            downRange: new[] { runDownFrom, runDownTo },
-            upRange: new[] { runUpFrom, runUpTo },
-            rightRange: new[] { runRightFrom, runRightTo }
-        );
-
-        bool hasAny = (_anims.runUp != null && _anims.runUp.Count > 0) || (_anims.runDown != null && _anims.runDown.Count > 0) || (_anims.runRight != null && _anims.runRight.Count > 0);
-
-        if (hasAny) _animsLoaded = true;
-    }
-
-    private void UpdateDirection()
-    {
         Vector3 delta = transform.position - _previousPosition;
         _previousPosition = transform.position;
 
-        if (delta.sqrMagnitude < 0.00001f) return;
+        Vector2 velocity = new Vector2(delta.x, delta.y) / Mathf.Max(Time.deltaTime, 1e-5f);
+        if (velocity.sqrMagnitude > 0.0001f)
+            _blend = velocity.normalized;
 
-        EnemyDirection newDir = ResolveDirection(delta);
+        _animator.SetFloat(BlendXHash, _blend.x);
+        _animator.SetFloat(BlendYHash, _blend.y);
+        _animator.SetFloat(SpeedHash, playbackSpeed / 100f);
 
-        if (newDir != _currentDirection)
+        _spriteRenderer.flipX = _blend.x < 0f;
+    }
+
+    private void TryInitializeAnimator()
+    {
+        if (_initialized) return;
+        if (GameManager.instance == null || SpriteLoader.instance == null) return;
+
+        AnimatorOverrideController template = GameManager.EnemyAnimatorOverrideTemplate;
+        if (template == null)
         {
-            float progress = GetNormalisedProgress();
-            _currentDirection = newDir;
-            SetNormalisedProgress(progress);
+            Debug.LogError("[EnemyAnimator] GameManager has no AnimatorOverrideController template assigned.");
+            return;
         }
+
+        string enemyName = _enemy != null ? _enemy.GetName().Replace("(Clone)", "").Trim() : gameObject.name;
+
+        SpriteLoader.EnemyRunClips clips = SpriteLoader.instance.LoadEnemyRunClips(enemyName);
+
+        _runtimeOverride = Instantiate(template);
+        ApplyEnemyOverrides(_runtimeOverride, clips);
+        _animator.runtimeAnimatorController = _runtimeOverride;
+
+        _animator.SetFloat(BlendXHash, _blend.x);
+        _animator.SetFloat(BlendYHash, _blend.y);
+        _animator.SetFloat(SpeedHash, playbackSpeed / 100f);
+        _animator.Play(RunStateName, 0, 0f);
+
+        _initialized = true;
     }
 
-    private static EnemyDirection ResolveDirection(Vector3 delta)
+    private static void ApplyEnemyOverrides(AnimatorOverrideController aoc, SpriteLoader.EnemyRunClips clips)
     {
-        if (Mathf.Abs(delta.x) >= Mathf.Abs(delta.y))
-            return delta.x >= 0f ? EnemyDirection.Right : EnemyDirection.Left;
+        var overrides = new List<KeyValuePair<AnimationClip, AnimationClip>>();
+        aoc.GetOverrides(overrides);
 
-        return delta.y >= 0f ? EnemyDirection.Up : EnemyDirection.Down;
-    }
-
-    private void AdvanceFrame()
-    {
-        List<Sprite> sheet = CurrentSheet();
-        if (sheet == null || sheet.Count == 0) return;
-
-        float effectiveFps = baseFps * (playbackSpeed / 100f);
-        if (effectiveFps <= 0f) return;
-
-        float frameDuration = 1f / effectiveFps;
-        _frameTimer += Time.deltaTime;
-
-        while (_frameTimer >= frameDuration)
+        var uniqueOriginals = new List<AnimationClip>();
+        foreach (KeyValuePair<AnimationClip, AnimationClip> p in overrides)
         {
-            _frameTimer -= frameDuration;
-            _frameProgress = (_frameProgress + (1f / sheet.Count)) % 1f;
+            if (p.Key != null && !uniqueOriginals.Contains(p.Key))
+                uniqueOriginals.Add(p.Key);
         }
+
+        AnimationClip fallback = UtilityLibrary.Instance != null ? UtilityLibrary.Instance.nullPlaceholderClip : null;
+        AnimationClip anyEnemy = clips.AnyNonNull();
+
+        var replacementByOriginal = new Dictionary<AnimationClip, AnimationClip>();
+        for (int i = 0; i < uniqueOriginals.Count; i++)
+        {
+            AnimationClip orig = uniqueOriginals[i];
+            AnimationClip repl = ResolveOverrideForOriginal(orig.name, clips);
+
+            if (repl == null && uniqueOriginals.Count == 3 && clips.runDown != null && clips.runUp != null && clips.runRight != null)
+            {
+                repl = i == 0 ? clips.runDown : i == 1 ? clips.runRight : clips.runUp;
+            }
+
+            if (repl == null) repl = anyEnemy ?? fallback ?? orig;
+
+            replacementByOriginal[orig] = repl;
+        }
+
+        for (int i = 0; i < overrides.Count; i++)
+        {
+            AnimationClip original = overrides[i].Key;
+            if (original == null) continue;
+
+            AnimationClip replacement = replacementByOriginal.TryGetValue(original, out AnimationClip r) ? r : anyEnemy ?? fallback ?? original;
+            overrides[i] = new KeyValuePair<AnimationClip, AnimationClip>(original, replacement);
+        }
+
+        aoc.ApplyOverrides(overrides);
     }
 
-    private void ApplyFrame()
+    private static AnimationClip ResolveOverrideForOriginal(string originalClipName, SpriteLoader.EnemyRunClips clips)
     {
-        List<Sprite> sheet = CurrentSheet();
-        if (sheet == null || sheet.Count == 0) return;
+        if (string.IsNullOrEmpty(originalClipName)) return null;
 
-        int index = Mathf.Clamp(Mathf.FloorToInt(_frameProgress * sheet.Count), 0, sheet.Count - 1);
-        _spriteRenderer.sprite = sheet[index];
-        _spriteRenderer.flipX = (_currentDirection == EnemyDirection.Left);
-    }
+        string u = originalClipName.ToUpperInvariant();
+        if (u.Contains("RUN_DOWN") || (u.Contains("DOWN") && u.Contains("RUN"))) return clips.runDown;
+        if (u.Contains("RUN_UP")) return clips.runUp;
+        if (u.Contains("RUN_RIGHT") || u.Contains("RUN_LEFT")) return clips.runRight;
 
-    private List<Sprite> CurrentSheet() => _currentDirection switch
-    {
-        EnemyDirection.Up => _anims.runUp,
-        EnemyDirection.Down => _anims.runDown,
-        EnemyDirection.Right => _anims.runRight,
-        EnemyDirection.Left => _anims.runRight,
-        _ => _anims.runDown,
-    };
-
-    private float GetNormalisedProgress()
-    {
-        List<Sprite> sheet = CurrentSheet();
-        if (sheet == null || sheet.Count == 0) return 0f;
-        return (float)Mathf.FloorToInt(_frameProgress * sheet.Count) / sheet.Count;
-    }
-
-    private void SetNormalisedProgress(float t)
-    {
-        _frameProgress = Mathf.Clamp01(t);
-        _frameTimer = 0f;
+        return null;
     }
 }

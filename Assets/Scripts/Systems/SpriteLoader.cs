@@ -36,43 +36,49 @@ public class SpriteLoader : MonoBehaviour
             .ToList();
     }
 
-    public struct EnemyAnimations
+    public struct EnemyRunClips
     {
-        public List<Sprite> runUp;
-        public List<Sprite> runDown;
-        public List<Sprite> runRight; 
+        public AnimationClip runDown;
+        public AnimationClip runUp;
+        public AnimationClip runRight;
+
+        public AnimationClip AnyNonNull() => runDown ?? runUp ?? runRight;
     }
 
-    public EnemyAnimations LoadEnemySprites(string enemyName, int[] downRange, int[] upRange, int[] rightRange)
+    /// <summary>
+    /// Loads AnimationClips from Resources/Sprites/Enemies/&lt;enemyName&gt;.
+    /// Prefer Aseprite tags (or clip names) containing Enemy_RUN_DOWN, Enemy_RUN_UP, Enemy_RUN_RIGHT (or RUN_DOWN / RUN_UP / RUN_RIGHT).
+    /// If the asset exports exactly one clip, it is used for all directions.
+    /// </summary>
+    public EnemyRunClips LoadEnemyRunClips(string enemyName)
     {
-        string folderPath  = $"Sprites/Enemies/{enemyName}";
-        Sprite[] all       = Resources.LoadAll<Sprite>(folderPath);
+        string path = $"Sprites/Enemies/{enemyName}";
+        AnimationClip[] all = Resources.LoadAll<AnimationClip>(path);
+        var result = new EnemyRunClips();
 
         if (all == null || all.Length == 0)
+            return result;
+
+        if (all.Length == 1)
         {
-            return new EnemyAnimations();
+            result.runDown = result.runUp = result.runRight = all[0];
+            return result;
         }
 
-        var frameMap = all
-            .Where(s => s.name.StartsWith("Frame_"))
-            .ToDictionary(s => ExtractTrailingNumber(s.name), s => s);
-
-        return new EnemyAnimations
+        foreach (AnimationClip clip in all)
         {
-            runDown  = SliceRange(frameMap, downRange[0],  downRange[1],  "RUN_DOWN"),
-            runUp    = SliceRange(frameMap, upRange[0],    upRange[1],    "RUN_UP"),
-            runRight = SliceRange(frameMap, rightRange[0], rightRange[1], "RUN_RIGHT"),
-        };
-    }
-
-    private List<Sprite> SliceRange(Dictionary<int, Sprite> frameMap, int from, int to, string label)
-    {
-        var result = new List<Sprite>();
-        for (int i = from; i <= to; i++)
-        {
-            if (frameMap.TryGetValue(i, out Sprite s))
-                result.Add(s);
+            string u = clip.name.ToUpperInvariant();
+            if (u.Contains("RUN_DOWN") || u.Contains("ENEMY_RUN_DOWN"))
+                result.runDown = clip;
+            else if (u.Contains("RUN_UP") || u.Contains("ENEMY_RUN_UP"))
+                result.runUp = clip;
+            else if (u.Contains("RUN_RIGHT") || u.Contains("ENEMY_RUN_RIGHT") || u.Contains("RUN_LEFT") || u.Contains("ENEMY_RUN_LEFT"))
+                result.runRight = clip;
         }
+
+        if (result.runDown == null) result.runDown = result.runUp ?? result.runRight;
+        if (result.runUp == null) result.runUp = result.runDown ?? result.runRight;
+        if (result.runRight == null) result.runRight = result.runDown ?? result.runUp;
 
         return result;
     }

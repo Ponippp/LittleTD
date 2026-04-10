@@ -5,6 +5,8 @@ public class Projectile : MonoBehaviour
     // [SerializeField] private SpriteRenderer spriteRenderer;
     public float speed = 0;
     public float damage = 0;
+    public int pierce = 0;
+    // private ProjectileData data;
 
     private IProjectileMovementStrategy _strategy;
 
@@ -19,15 +21,10 @@ public class Projectile : MonoBehaviour
     {
         this.damage = damage;
         this.speed = speed;
+        this.pierce = 1; // TODO REMOVE PLACEHOLDER REPLACE WITH ProjectileData
         this._strategy = strategy;
         this._onHitCallback = onHitCallback;
     }
-
-
-    // public void SetAimingStrategy(IAimingStrategy strategy)
-    // {
-    //     _strategy = strategy;
-    // }
 
     void Update()
     {
@@ -60,13 +57,15 @@ public class Projectile : MonoBehaviour
     // weird syntax to make this function more efficient since it is used a ton
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (pierce <= 0) { ResetAndEnqueueProjectile(); return; } // safety check, should never happen
         if (((1 << other.gameObject.layer) & Utility.ENEMY__LAYERMASK) != 0)
         {
             if (other.TryGetComponent<Enemy>(out var enemy))
             {
+                pierce--;
                 enemy.TakeDamage(damage);
                 _onHitCallback?.Invoke(damage); //?: if onhitcallback !=null, then invoke
-                ResetAndEnqueueProjectile();
+                if (pierce <= 0) ResetAndEnqueueProjectile();
             }
         }
     }
@@ -81,6 +80,7 @@ public class Projectile : MonoBehaviour
     {
         speed = 0;
         damage = 0;
+        pierce = 0;
     }
 
     public float GetSpeed() => speed;

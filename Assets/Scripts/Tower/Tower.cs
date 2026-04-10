@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    [Header("Type")]
-    [SerializeField] private TowerType towerType;
-
     [Header("References")]
     [SerializeField] private SpriteRenderer spriteRenderer;
 
@@ -50,6 +47,7 @@ public class Tower : MonoBehaviour
         {
             public float totalDamageDealt = 0;
             public string towerName = "";
+            public TowerType towerType;
             public bool isInitalized = false;
         }
     }
@@ -66,7 +64,15 @@ public class Tower : MonoBehaviour
         stats = newStats;
         stats.fireCooldown = 0f;
 
-        stats.aiming.strategy = stats.aiming.type switch
+        stats.aiming.strategy = GetAimingType();
+
+        gameObject.name = stats.record.towerName;
+        stats.record.isInitalized = true;
+    }
+
+    private IAimingStrategy GetAimingType()
+    {
+        return stats.aiming.type switch
         {
             TowerAimingType.FIRST => new FirstEnemyStrategy(),
             TowerAimingType.CLOSEST => new ClosestEnemyStrategy(),
@@ -76,8 +82,6 @@ public class Tower : MonoBehaviour
             TowerAimingType.SPIN => new SpinStrategy(stats.visual.rotationSpeed.BaseBoostedF),
             _ => new FirstEnemyStrategy(),
         };
-
-        stats.record.isInitalized = true;
     }
 
     private void Update()
@@ -120,7 +124,7 @@ public class Tower : MonoBehaviour
         }
         else
         {
-            proj.Initialize(dmg, speed, new DirectionalStrategy(proj, result.targetPosition, transform), RecordDamageDealt);
+            proj.Initialize(dmg, speed, new DirectionalStrategy(proj, result.targetPosition, spawnPos), RecordDamageDealt);
         }
     }
 
@@ -137,7 +141,7 @@ public class Tower : MonoBehaviour
     public float GetLookingDirection() => stats.aiming.currentResult.lookingAngle;
 
     public TowerState GetTowerState() { return stats.towerState; }
-    public TowerType GetTowerType() { return towerType; }
+    public TowerType GetTowerType() { return stats.record.towerType; }
     public string GetTowerName() { return stats.record.towerName; }
     public bool GetIsInitalized() { return stats.record.isInitalized; }
 
