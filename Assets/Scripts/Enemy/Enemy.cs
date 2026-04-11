@@ -1,49 +1,82 @@
 using UnityEngine;
-using System.Collections.Generic;
+using System;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private string enemyName = "DefaultEnemy";
-    [SerializeField] private float health = 10f;
-    [SerializeField] private float speed = 2f;
-    [SerializeField] private Vector3 spawnPoint;
-    [SerializeField] private Vector3 goalPoint;
-    [SerializeField] private EnemyMovementType movementType = EnemyMovementType.GROUND;
-    private IEnemyMovementStrategy _movementStrategy;
+    [SerializeField] private EnemyStats stats = new();
 
-    private void Start()
+    [Serializable]
+    public class EnemyStats
     {
-        goalPoint = GameManager.instance.GetEnemyGoalPoint();
-        spawnPoint = GameManager.instance.GetEnemySpawnPoint();
-        transform.position = spawnPoint;
-        if (movementType == EnemyMovementType.FLYING) _movementStrategy = new FlyingStrategy(this);
-        else if (movementType == EnemyMovementType.GROUND) _movementStrategy = new GroundStrategy(this, FindAnyObjectByType<AStar>());
+        public string enemyName = "DefaultName";
+        public float health = 50f;
+        public float speed = 1f;
+        public float circleColliderRadius = 0.3f;
+        public int animationSpeedPercentage = 100;
+        public Pathfinding pathfinding = new();
+        public Record record = new();
+
+        [Serializable]
+        public class Pathfinding
+        {
+            public Vector3 spawnPoint;
+            public Vector3 goalPoint;
+            public EnemyMovementType movementType = EnemyMovementType.GROUND;
+            public IEnemyMovementStrategy movementStrategy;
+        }
+
+        [Serializable]
+        public class Record
+        {
+            public EnemyType enemyType;
+            public bool isInitialized;
+        }
+    }
+
+    public void Initialize(EnemyStats newStats, Vector3 spawnWorldPosition)
+    {
+        stats = newStats;
+        stats.pathfinding.goalPoint = GameManager.instance.GetEnemyGoalPoint();
+        stats.pathfinding.spawnPoint = spawnWorldPosition;
+        transform.position = spawnWorldPosition;
+        SetupMovementStrategy();
+        gameObject.name = stats.enemyName;
+        stats.record.isInitialized = true;
+        GetComponent<CircleCollider2D>().radius = stats.circleColliderRadius;
+    }
+
+    private void SetupMovementStrategy()
+    {
+        if (stats.pathfinding.movementType == EnemyMovementType.FLYING) stats.pathfinding.movementStrategy = new FlyingStrategy(this);
+        else if (stats.pathfinding.movementType == EnemyMovementType.GROUND) stats.pathfinding.movementStrategy = new GroundStrategy(this, FindAnyObjectByType<AStar>());
     }
 
     private void Update()
     {
-        _movementStrategy.Move();
+        if (!stats.record.isInitialized || stats.pathfinding.movementStrategy == null) return;
+        stats.pathfinding.movementStrategy.Move();
     }
 
     private void OnDestroy()
     {
-        if (_movementStrategy != null) _movementStrategy.Cleanup();
+        if (stats.pathfinding.movementStrategy != null) stats.pathfinding.movementStrategy.Cleanup();
     }
 
     public void TakeDamage(float damage)
     {
-        health -= damage;
-        if (health <= 0)
-            Destroy(gameObject);
+        stats.health -= damage;
+        if (stats.health <= 0) Destroy(gameObject);
     }
-    public void SetMovementStrategy(IEnemyMovementStrategy movementStrategy) => _movementStrategy = movementStrategy;
-    
-    public float GetDistanceToGoal() => _movementStrategy.GetDistanceToGoal();
-    public float GetHealth() => health;
-    public float GetSpeed() => speed;
-    public string GetName() => enemyName;
-    public Vector3 GetGoalPoint() => goalPoint;
-    public Vector3 GetSpawnPoint() => spawnPoint;
 
+    public void SetMovementStrategy(IEnemyMovementStrategy movementStrategy) => stats.pathfinding.movementStrategy = movementStrategy;
 
+    public bool GetIsInitialized() => stats.record.isInitialized;
+    public EnemyType GetEnemyType() => stats.record.enemyType;
+    public float GetDistanceToGoal() => stats.pathfinding.movementStrategy != null ? stats.pathfinding.movementStrategy.GetDistanceToGoal() : 0f;
+    public float GetHealth() => stats.health;
+    public float GetSpeed() => stats.speed;
+    public string GetName() => stats.enemyName;
+    public int GetAnimationSpeedPercentage() => stats.animationSpeedPercentage;
+    public Vector3 GetGoalPoint() => stats.pathfinding.goalPoint;
+    public Vector3 GetSpawnPoint() => stats.pathfinding.spawnPoint;
 }

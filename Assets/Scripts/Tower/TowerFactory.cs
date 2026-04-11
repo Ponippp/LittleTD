@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerFactory : MonoBehaviour
+public class TowerFactory : MonoBehaviour // not static due to needing start and awake for test purposes
 {
     public static TowerFactory Instance { get; private set; }
 
@@ -9,6 +9,7 @@ public class TowerFactory : MonoBehaviour
 
     [Header("Tower Data (Defaults)")]
     [SerializeField] private TowerData gigaGatlingData;
+    [SerializeField] private TowerData officeChairData;
     // other tower data would go here
 
 
@@ -24,7 +25,12 @@ public class TowerFactory : MonoBehaviour
         Tower[] towers = FindObjectsByType<Tower>(FindObjectsSortMode.None);
         foreach (Tower tower in towers)
         {
-            if (tower != null && !tower.GetIsInitalized()) tower.Initialize(CreateTowerStats(GetDataByType(tower.GetTowerType())));
+            if (tower != null && !tower.GetIsInitalized())
+            {
+                tower.Initialize(CreateTowerStats(GetDataByType(tower.GetTowerType())));
+                Utility.SnapToTileCenter(tower.transform);
+            }
+
         }
     }
 
@@ -75,6 +81,7 @@ public class TowerFactory : MonoBehaviour
         return type switch
         {
             TowerType.GIGA_GATLING => gigaGatlingData,
+            TowerType.OFFICE_CHAIR => officeChairData,
             _ => null,
         };
     }

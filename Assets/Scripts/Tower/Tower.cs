@@ -40,6 +40,7 @@ public class Tower : MonoBehaviour
             public BaseBoostedFloat rotationSpeed = new();
             public Vector2 projectileSpawnRingBottomOffset = new Vector2(0f, -0.2f);
             public float projectileSpawnRingRadius = 0.75f;
+            public float lastLookingAngle;
         }
         public Record record = new();
         [Serializable]
@@ -52,6 +53,7 @@ public class Tower : MonoBehaviour
         }
     }
     public event Action OnFire;
+
 
     private void Awake()
     {
@@ -94,7 +96,13 @@ public class Tower : MonoBehaviour
     {
         if (stats.fireCooldown > 0f) stats.fireCooldown -= Time.deltaTime;
 
-        stats.aiming.currentResult = stats.aiming.strategy.UpdateAiming(transform.position, stats.range.BaseBoostedF);
+        AimingResult result = stats.aiming.strategy.UpdateAiming(transform.position, stats.range.BaseBoostedF);
+
+        bool aimFromStrategy = stats.aiming.type == TowerAimingType.SPIN || result.enemy != null;
+        if (aimFromStrategy) stats.visual.lastLookingAngle = result.lookingAngle;
+        else result.lookingAngle = stats.visual.lastLookingAngle;
+
+        stats.aiming.currentResult = result;
 
         if (stats.aiming.currentResult.shouldFire && stats.fireCooldown <= 0f)
         {

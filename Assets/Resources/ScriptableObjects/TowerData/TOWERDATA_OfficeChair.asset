@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13aa233ec15e44f28a081965a38be696, type: 3}
-  m_Name: TOWERDATA_GigaGatling
+  m_Name: TOWERDATA_OfficeChair
   m_EditorClassIdentifier: 
-  towerName: GigaGatling
-  towerType: 0
-  baseRange: 4
-  baseFireInterval: 0.66
+  towerName: OfficeChair
+  towerType: 1
+  baseRange: 6
+  baseFireInterval: 0.1
   towerAimingType: 0
   baseRotationSpeedIfSpinningRadians: 0
-  baseProjectileSpeed: 15
-  baseProjectileDamage: 3
+  baseProjectileSpeed: 30
+  baseProjectileDamage: 1
   projectileMovementType: 0
-  fireAnimationTime: 0.1
-  projectileSpawnRingBottomOffset: {x: 0, y: -0.2}
-  projectileSpawnRingRadius: 0.75
+  fireAnimationTime: 0.11
+  projectileSpawnRingBottomOffset: {x: 0, y: -0.5}
+  projectileSpawnRingRadius: 1.5

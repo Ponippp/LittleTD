@@ -58,20 +58,30 @@ public class EnemyAnimator : MonoBehaviour
         _previousPosition = transform.position;
 
         Vector2 velocity = new Vector2(delta.x, delta.y) / Mathf.Max(Time.deltaTime, 1e-5f);
-        if (velocity.sqrMagnitude > 0.0001f)
-            _blend = velocity.normalized;
+        if (velocity.sqrMagnitude > 0.0001f) _blend = velocity.normalized;
 
         _animator.SetFloat(BlendXHash, _blend.x);
         _animator.SetFloat(BlendYHash, _blend.y);
-        _animator.SetFloat(SpeedHash, playbackSpeed / 100f);
+        _animator.SetFloat(SpeedHash, ResolveAnimatorSpeed());
 
         _spriteRenderer.flipX = _blend.x < 0f;
+    }
+
+    private float ResolveAnimatorSpeed()
+    {
+        float pct = _enemy != null && _enemy.GetIsInitialized() ? _enemy.GetAnimationSpeedPercentage() : playbackSpeed;
+        return pct / 100f;
     }
 
     private void TryInitializeAnimator()
     {
         if (_initialized) return;
         if (GameManager.instance == null || SpriteLoader.instance == null) return;
+
+        // EnemyFactory applies EnemyData in Start(); EnemyAnimator Start/Update can run first.
+        // Loading clips before Initialize() uses the wrong enemyName and locks _initialized forever.
+        if (_enemy != null && !_enemy.GetIsInitialized())
+            return;
 
         AnimatorOverrideController template = GameManager.EnemyAnimatorOverrideTemplate;
         if (template == null)
@@ -90,7 +100,7 @@ public class EnemyAnimator : MonoBehaviour
 
         _animator.SetFloat(BlendXHash, _blend.x);
         _animator.SetFloat(BlendYHash, _blend.y);
-        _animator.SetFloat(SpeedHash, playbackSpeed / 100f);
+        _animator.SetFloat(SpeedHash, ResolveAnimatorSpeed());
         _animator.Play(RunStateName, 0, 0f);
 
         _initialized = true;

@@ -36,9 +36,7 @@ public class FirstEnemyStrategy : IAimingStrategy
         }
         else
         {
-            result.enemy = null;
             result.shouldFire = false;
-            result.lookingAngle = 0f; 
         }
 
         return result;

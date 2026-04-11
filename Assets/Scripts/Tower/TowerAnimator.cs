@@ -60,11 +60,7 @@ public class TowerAnimator : MonoBehaviour
         idleSprites = SpriteLoader.instance.LoadTowerSprites(towerName, "IDLE");
         shootSprites = SpriteLoader.instance.LoadTowerSprites(towerName, "SHOOT");
 
-        if (idleSprites.Count > 0)
-        {
-            spritesLoaded = true;
-            Debug.Log($"[TowerAnimator] Successfully loaded {idleSprites.Count} idle sprites for {towerName}");
-        }
+        if (idleSprites.Count > 0) spritesLoaded = true;
     }
 
     private List<Sprite> ResolveActiveSet()

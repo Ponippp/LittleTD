@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private GameObject towerPrefab;
+    [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private AnimatorOverrideController overrideController;
 
     /// <summary>Template duplicated per enemy; assign EnemyAnimatorOverrideController in the inspector.</summary>
@@ -54,6 +55,8 @@ public class GameManager : MonoBehaviour
     public Vector3 GetEnemyGoalPoint() => enemyGoalPoint;
     public Tilemap GetFloorTilemap() => floorTilemap;
     public GameObject GetTowerPrefab() => towerPrefab;
+    public GameObject GetEnemyPrefab() => enemyPrefab;
+    // public GameObject GetProjectilePrefab() => projectilePrefab;
     public AnimatorOverrideController GetAnimatorOverrideController() => overrideController;
     public int GetGridHeight() => gridHeight;
     public int GetGridWidth() => gridWidth;
