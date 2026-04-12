@@ -57,20 +57,26 @@ public class TowerFactory : MonoBehaviour // not static due to needing start and
         Tower.TowerStats stats = new();
         stats.range.baseF = data.baseRange;
         stats.fireInterval.baseF = data.baseFireInterval;
+        stats.baseBulletSpreadAngle.baseF = data.baseBulletSpreadAngle;
+        stats.projectilesFiredWithEachShot.baseI = data.baseProjectilesFiredWithEachShot;
+        stats.baseReleaseTimeBetweenEachProjectileInBurst.baseF = data.baseReleaseTimeBetweenEachProjectileInBurst;
 
         stats.aiming.type = data.towerAimingType;
+        // stats.aiming.aimingWindowWhereTowerCanShootAtEnemyRadians.baseF = data.baseAimingWindowWhereTowerCanShootAtEnemyRadians;
+        stats.aiming.swivelSpeed.baseF = data.baseTowerSwivelSpeed;
 
         stats.projectile.speed.baseF = data.baseProjectileSpeed;
         stats.projectile.damage.baseF = data.baseProjectileDamage;
         stats.projectile.movementType = data.projectileMovementType;
 
         stats.visual.fireAnimationTime = data.fireAnimationTime;
-        stats.visual.rotationSpeed.baseF = data.baseRotationSpeedIfSpinningRadians;
         stats.visual.projectileSpawnRingBottomOffset = data.projectileSpawnRingBottomOffset;
         stats.visual.projectileSpawnRingRadius = data.projectileSpawnRingRadius;
 
         stats.record.towerName = data.towerName;
         stats.record.towerType = data.towerType;
+        stats.record.towerDescription = data.towerDescription;
+        stats.record.baseTowerCost.baseF = data.baseTowerCost;
 
         return stats;
     }

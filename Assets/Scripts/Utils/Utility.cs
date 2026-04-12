@@ -90,5 +90,15 @@ public static class Utility
         return center;
     }
 
+    public static Vector2 RandomAngleOffset(Vector2 direction, float absOffsetDegrees)
+    {
+        float offset = Random.Range(-absOffsetDegrees, absOffsetDegrees) * Mathf.Deg2Rad;
+        float cos = Mathf.Cos(offset);
+        float sin = Mathf.Sin(offset);
+        return new Vector2(
+            direction.x * cos - direction.y * sin,
+            direction.x * sin + direction.y * cos
+        );
+    }
 
 }

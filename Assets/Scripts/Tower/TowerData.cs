@@ -6,8 +6,8 @@ public class TowerData : ScriptableObject
     [Header("Base Tower Info")]
     public string towerName;
     public TowerType towerType;
-    // public string towerDescription; // for when hitting (i) button in-game. Should be appropriately vague.
-    // public int towerCost = 650;
+    public string towerDescription; // for when hitting (i) button in-game. Should be appropriately vague.
+    public int baseTowerCost = 650;
     // public TowerFootprint towerFootprint; // POSSIBLE NEW STAT, default to 1x1 but could have other options like 2x2 or 1x2, etc.
 
     // [Header("Tower Paths")]
@@ -21,13 +21,14 @@ public class TowerData : ScriptableObject
     [Header("Base Tower Stats")]
     public float baseRange = 2f;
     public float baseFireInterval = 0.2f;
-    // public float baseBulletSpreadAngle = 0f; // POSSIBLE NEW STAT
-    // public int projectilesFiredWithEachShot = 1; // POSSIBLE NEW STAT (allows for burst fire or shotguns (as each pellet gets own bullet spread angle))
-    //      public float baseReleaseTimeBetweenEachProjectileInBurst = 0.05f; // POSSIBLE NEW STAT (for burst fire towers, how long between each projectile is released after the initial fire command)
+    public float baseBulletSpreadAngle = 0f;
+    public int baseProjectilesFiredWithEachShot = 1; // (allows for burst fire or shotguns (as each pellet gets own bullet spread angle))
+    public float baseReleaseTimeBetweenEachProjectileInBurst = 0.05f; // (for burst fire towers, how long between each projectile is released after the initial fire command)
 
     [Header("Aiming Stats")]
     public TowerAimingType towerAimingType = TowerAimingType.FIRST;
-    public float baseRotationSpeedIfSpinningRadians = 0;
+    public float baseTowerSwivelSpeed = 180;
+    // public float baseAimingWindowWhereTowerCanShootAtEnemyRadians = 10f;
     // add mechanic for max tower rotation speed where instead of being able to go from facing right to left instantly, it must spin all the way 
     //      around over the course of X time. This could be interesting and would add more weight to faster enemies as well as perhaps incentivize 
     //      player to play towers far away from enemies as then that shortens the rotation time due to the movement within their sight being relatively 

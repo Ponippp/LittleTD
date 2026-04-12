@@ -14,11 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: OfficeChair
   towerType: 1
-  baseRange: 6
-  baseFireInterval: 0.1
+  towerDescription: tommyToughknuckles
+  baseTowerCost: 650
+  baseRange: 7
+  baseFireInterval: 0.25
+  baseBulletSpreadAngle: 15
+  baseProjectilesFiredWithEachShot: 5
+  baseReleaseTimeBetweenEachProjectileInBurst: 0.05
   towerAimingType: 0
-  baseRotationSpeedIfSpinningRadians: 0
-  baseProjectileSpeed: 30
+  baseTowerSwivelSpeed: 181
+  baseAimingWindowWhereTowerCanShootAtEnemyRadians: 0
+  baseProjectileSpeed: 10
   baseProjectileDamage: 1
   projectileMovementType: 0
   fireAnimationTime: 0.11

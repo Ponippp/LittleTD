@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -227,6 +231,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -285,6 +293,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -341,6 +353,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -399,6 +415,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -455,6 +475,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (43)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -600,6 +624,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (52)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -688,6 +716,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (42)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -744,6 +776,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (51)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -849,6 +885,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (49)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -984,6 +1024,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1040,6 +1084,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1098,6 +1146,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1155,6 +1207,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (48)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1211,6 +1267,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1361,6 +1421,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (39)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1417,6 +1481,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (54)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2246,6 +2314,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (45)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2302,6 +2374,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2376,6 +2452,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (40)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2432,6 +2512,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (44)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2490,6 +2574,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2546,6 +2634,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4942,6 +5034,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (35)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5030,6 +5126,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (50)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5086,6 +5186,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5144,6 +5248,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5200,6 +5308,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (29)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5454,6 +5566,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5510,6 +5626,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (55)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5612,6 +5732,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (33)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5669,6 +5793,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (31)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5725,6 +5853,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (24)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5828,6 +5960,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (27)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5884,6 +6020,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5942,6 +6082,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5999,6 +6143,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (36)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6055,6 +6203,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6249,6 +6401,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6305,6 +6461,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (28)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6424,6 +6584,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (32)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6480,6 +6644,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (53)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6538,6 +6706,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (37)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6594,6 +6766,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6652,6 +6828,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6708,6 +6888,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6766,6 +6950,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (30)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6822,6 +7010,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6880,6 +7072,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (47)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6936,6 +7132,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (34)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6994,6 +7194,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7050,6 +7254,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7206,6 +7414,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaGatling (38)
       objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7262,6 +7474,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling (41)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7323,6 +7539,10 @@ PrefabInstance:
     - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
       propertyPath: m_Name
       value: GigaGatling
+      objectReference: {fileID: 0}
+    - target: {fileID: 7692881933824852729, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Tower : MonoBehaviour
@@ -13,7 +14,10 @@ public class Tower : MonoBehaviour
     {
         public BaseBoostedFloat range = new();
         public BaseBoostedFloat fireInterval = new();
-        public TowerState towerState = TowerState.IDLE;
+        public BaseBoostedFloat baseBulletSpreadAngle = new();
+        public BaseBoostedInt projectilesFiredWithEachShot = new();
+        public BaseBoostedFloat baseReleaseTimeBetweenEachProjectileInBurst = new();
+        public BaseBoostedFloat currentTowerSellValue = new(); // affected by discounts, not equal to baseTowerCost
         public float fireCooldown = 0f;
         public Aiming aiming = new();
         [Serializable]
@@ -22,6 +26,8 @@ public class Tower : MonoBehaviour
             public IAimingStrategy strategy;
             public AimingResult currentResult;
             public TowerAimingType type = TowerAimingType.FIRST;
+            public BaseBoostedFloat swivelSpeed = new();
+            // public BaseBoostedFloat aimingWindowWhereTowerCanShootAtEnemyRadians = new();
         }
         public Projectile projectile = new();
         [Serializable]
@@ -37,7 +43,6 @@ public class Tower : MonoBehaviour
         public class Visual
         {
             public float fireAnimationTime = 0.1f;
-            public BaseBoostedFloat rotationSpeed = new();
             public Vector2 projectileSpawnRingBottomOffset = new Vector2(0f, -0.2f);
             public float projectileSpawnRingRadius = 0.75f;
             public float lastLookingAngle;
@@ -48,6 +53,9 @@ public class Tower : MonoBehaviour
         {
             public float totalDamageDealt = 0;
             public string towerName = "";
+            public string towerDescription = "";
+            public BaseBoostedFloat baseTowerCost = new();
+            public TowerState towerState = TowerState.IDLE;
             public TowerType towerType;
             public bool isInitalized = false;
         }
@@ -81,7 +89,7 @@ public class Tower : MonoBehaviour
             TowerAimingType.STRONGEST => new StrongestEnemyStrategy(),
             TowerAimingType.LAST => new LastEnemyStrategy(),
             TowerAimingType.WEAKEST => new WeakestEnemyStrategy(),
-            TowerAimingType.SPIN => new SpinStrategy(stats.visual.rotationSpeed.BaseBoostedF),
+            TowerAimingType.SPIN => new SpinStrategy(stats.aiming.swivelSpeed.BaseBoostedF),
             _ => new FirstEnemyStrategy(),
         };
     }
@@ -115,24 +123,32 @@ public class Tower : MonoBehaviour
     private void Fire(AimingResult result)
     {
         OnFire?.Invoke();
+        StartCoroutine(FireCoroutine(stats.projectile.damage.BaseBoostedF, stats.projectile.speed.BaseBoostedF, stats.projectile.movementType, result));
+    }
 
-        //purely for art; we want to spawn the projectile on the gun nozzle, and the gun nozzle is a different size+shape for different towers
-        Vector3 spawnPos = CalculateProjectileSpawnPosition(result.targetPosition);
-        Projectile proj = ObjectPooler.DequeueObject<Projectile>(Utility.PROJECTILE_OBJECTPOOL_NAME);
-        proj.gameObject.SetActive(true);
-        proj.transform.position = spawnPos;
-
-        float dmg = stats.projectile.damage.BaseBoostedF;
-        float speed = stats.projectile.speed.BaseBoostedF;
-        ProjectileMovementType movementType = stats.projectile.movementType;
-
-        if (movementType == ProjectileMovementType.HOMING && result.enemy != null)
+    private IEnumerator FireCoroutine(float dmg, float speed, ProjectileMovementType movementType, AimingResult result)
+    {
+        for (int i = 0; i < stats.projectilesFiredWithEachShot.BaseBoostedI; i++)
         {
-            proj.Initialize(dmg, speed, new HomingStrategy(proj, result.enemy), RecordDamageDealt);
-        }
-        else
-        {
-            proj.Initialize(dmg, speed, new DirectionalStrategy(proj, result.targetPosition, spawnPos), RecordDamageDealt);
+            Vector3 spawnPos = CalculateProjectileSpawnPosition(result.targetPosition); //purely for art; we want to spawn the projectile on the gun nozzle, and the gun nozzle is a different size+shape for different towers
+
+            Projectile proj = ObjectPooler.DequeueObject<Projectile>(Utility.PROJECTILE_OBJECTPOOL_NAME);
+            proj.gameObject.SetActive(true);
+            proj.transform.position = spawnPos;
+
+            if (movementType == ProjectileMovementType.HOMING && result.enemy != null)
+            {
+                proj.Initialize(dmg, speed, new HomingStrategy(proj, result.enemy), RecordDamageDealt);
+            }
+            else
+            {
+                Vector2 baseDir = (result.targetPosition - spawnPos).normalized;
+                if (CheckIfTargetWithinProjectileSpawnCircle(result.targetPosition)) baseDir = (result.targetPosition - transform.position).normalized; // override if within fire radius to avoid shooting backwards
+                Vector2 spreadDir = Utility.RandomAngleOffset(baseDir, stats.baseBulletSpreadAngle.BaseBoostedF);
+                proj.Initialize(dmg, speed, new DirectionalStrategy(proj, spreadDir), RecordDamageDealt);
+            }
+
+            yield return new WaitForSeconds(stats.baseReleaseTimeBetweenEachProjectileInBurst.BaseBoostedF);
         }
     }
 
@@ -146,9 +162,17 @@ public class Tower : MonoBehaviour
         return ringCenter + (targetDir * stats.visual.projectileSpawnRingRadius);
     }
 
+    private bool CheckIfTargetWithinProjectileSpawnCircle(Vector3 target)
+    {
+        Vector3 bottomPos = transform.position + (Vector3)stats.visual.projectileSpawnRingBottomOffset;
+        Vector3 ringCenter = bottomPos + (Vector3.up * stats.visual.projectileSpawnRingRadius);
+
+        return Vector3.Distance(target, ringCenter) <= stats.visual.projectileSpawnRingRadius;
+    }
+
     public float GetLookingDirection() => stats.aiming.currentResult.lookingAngle;
 
-    public TowerState GetTowerState() { return stats.towerState; }
+    public TowerState GetTowerState() { return stats.record.towerState; }
     public TowerType GetTowerType() { return stats.record.towerType; }
     public string GetTowerName() { return stats.record.towerName; }
     public bool GetIsInitalized() { return stats.record.isInitalized; }
