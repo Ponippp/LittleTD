@@ -7,7 +7,7 @@ public class StrongestEnemyStrategy : IAimingStrategy
         Collider2D[] colliderInRanges = Physics2D.OverlapCircleAll(towerPosition, range, Utility.ENEMY__LAYERMASK);
 
         Enemy strongest = null;
-        float maxHealth = -Mathf.Infinity;
+        float maxHealth = -Mathf.Infinity; //could rename to mostHealth
 
         foreach (Collider2D col in colliderInRanges)
         {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class Projectile : MonoBehaviour
 {
@@ -15,15 +16,15 @@ public class Projectile : MonoBehaviour
     //     spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     // }
 
-    private System.Action<float> _onHitCallback;
+    private Action<float> _onHitCallback;
 
     public void Initialize(float damage, float speed, IProjectileMovementStrategy strategy, System.Action<float> onHitCallback = null)
     {
         this.damage = damage;
         this.speed = speed;
         this.pierce = 1; // TODO REMOVE PLACEHOLDER REPLACE WITH ProjectileData
-        this._strategy = strategy;
-        this._onHitCallback = onHitCallback;
+        _strategy = strategy;
+        _onHitCallback = onHitCallback;
     }
 
     void Update()
@@ -32,12 +33,13 @@ public class Projectile : MonoBehaviour
 
         if (ProjectileOutOfBounds())
         {
-            ResetAndEnqueueProjectile();
+            ResetAndEnqueueProjectile(); //resets projectile's speed+dmg to 0 and returns it to the object pool
+
             return;
         }
 
         Vector3 oldPosition = transform.position;
-        _strategy.Move();
+        _strategy.Move(); //either moves in a straight line or homes in on an enemy, depending on the strategy.
         Vector3 newPosition = transform.position;
 
         RotateToFaceMovementDirection((newPosition - oldPosition).normalized);
@@ -51,6 +53,10 @@ public class Projectile : MonoBehaviour
 
     private void RotateToFaceMovementDirection(Vector3 moveDir)
     {
+        //moveDir is the vector from tower to enemy
+        //transform.up points north for the tower. This is not necessarily global north.
+        //we rotate the projectile vector to face the tower's south b/c the sprite art is made so
+        //the nozzle of the tower faces south
         if (moveDir != Vector3.zero) transform.up = -moveDir;
     }
 
@@ -64,7 +70,8 @@ public class Projectile : MonoBehaviour
             {
                 pierce--;
                 enemy.TakeDamage(damage);
-                _onHitCallback?.Invoke(damage); //?: if onhitcallback !=null, then invoke
+                _onHitCallback?.Invoke(damage); //"?" means if onhitcallback !=null, then invoke
+
                 if (pierce <= 0) ResetAndEnqueueProjectile();
             }
         }
@@ -73,6 +80,8 @@ public class Projectile : MonoBehaviour
     public void ResetAndEnqueueProjectile()
     {
         Reset();
+        //this is the instance of the object we want to reset+enqueue, we specify the name of the object pool 
+        //so we queue it into the right one
         ObjectPooler.EnqueueObject(this, Utility.PROJECTILE_OBJECTPOOL_NAME);
     }
 

@@ -14,13 +14,13 @@ public class Tower : MonoBehaviour
     {
         public BaseBoostedFloat range = new();
         public BaseBoostedFloat fireInterval = new();
-        public BaseBoostedFloat baseBulletSpreadAngle = new();
+        public BaseBoostedFloat baseBulletSpreadAngle = new(); //since BaseBoostedFloat is a custom data type (a class under the hood), need to create a new instance of it or it will be null
         public BaseBoostedInt projectilesFiredWithEachShot = new();
         public BaseBoostedFloat baseReleaseTimeBetweenEachProjectileInBurst = new();
         public BaseBoostedFloat currentTowerSellValue = new(); // affected by discounts, not equal to baseTowerCost
         public float fireCooldown = 0f;
         public Aiming aiming = new();
-        [Serializable]
+        [Serializable] //makes public class Aiming serializable, so you can edit the whole thing in inspector
         public class Aiming
         {
             public IAimingStrategy strategy;
@@ -96,7 +96,7 @@ public class Tower : MonoBehaviour
 
     private void Update()
     {
-        if (!stats.record.isInitalized) return;
+        if (!stats.record.isInitalized) return; //need to have tower data initialized before updateAiming each frame b/c update aiming relies on tower fire rate/cooldown
         UpdateAiming();
     }
 
@@ -104,7 +104,7 @@ public class Tower : MonoBehaviour
     {
         if (stats.fireCooldown > 0f) stats.fireCooldown -= Time.deltaTime;
 
-        AimingResult result = stats.aiming.strategy.UpdateAiming(transform.position, stats.range.BaseBoostedF);
+        AimingResult result = stats.aiming.strategy.UpdateAiming(transform.position, stats.range.BaseBoostedF); //give me the base range + boosted range of the tower (BaseBoostedF is like getBaseBoostedFloat())
 
         bool aimFromStrategy = stats.aiming.type == TowerAimingType.SPIN || result.enemy != null;
         if (aimFromStrategy) stats.visual.lastLookingAngle = result.lookingAngle;
@@ -116,7 +116,7 @@ public class Tower : MonoBehaviour
         {
             Fire(stats.aiming.currentResult);
             //reset fireCooldown
-            stats.fireCooldown = stats.fireInterval.BaseBoostedF;
+            stats.fireCooldown = stats.fireInterval.BaseBoostedF; //base value is boost(0). if we wanted to update the cooldown from 2s to 1s, we would say cooldown -= 1, which is like taking stats.fireInterval.boost() and making the boost -1 instead of the default of 0
         }
     }
 
@@ -126,6 +126,9 @@ public class Tower : MonoBehaviour
         StartCoroutine(FireCoroutine(stats.projectile.damage.BaseBoostedF, stats.projectile.speed.BaseBoostedF, stats.projectile.movementType, result));
     }
 
+    //coroutine runs in parallel so you don’t have to wait for it to execute before executing 
+    //other code. Useful when you have a function that has pauses like 
+    //yield return null (stalls 1 frame) or yield return WaitForSeconds(seconds)
     private IEnumerator FireCoroutine(float dmg, float speed, ProjectileMovementType movementType, AimingResult result)
     {
         for (int i = 0; i < stats.projectilesFiredWithEachShot.BaseBoostedI; i++)
@@ -133,7 +136,7 @@ public class Tower : MonoBehaviour
             Vector3 spawnPos = CalculateProjectileSpawnPosition(result.targetPosition); //purely for art; we want to spawn the projectile on the gun nozzle, and the gun nozzle is a different size+shape for different towers
 
             Projectile proj = ObjectPooler.DequeueObject<Projectile>(Utility.PROJECTILE_OBJECTPOOL_NAME);
-            proj.gameObject.SetActive(true);
+            proj.gameObject.SetActive(true); //grabs inactive object from pool and activates it
             proj.transform.position = spawnPos;
 
             if (movementType == ProjectileMovementType.HOMING && result.enemy != null)

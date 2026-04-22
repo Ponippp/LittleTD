@@ -42,19 +42,24 @@ public class Enemy : MonoBehaviour
         SetupMovementStrategy();
         gameObject.name = stats.enemyName;
         stats.record.isInitialized = true;
-        GetComponent<CircleCollider2D>().radius = stats.circleColliderRadius;
+        //we're using trigger colliders (hitbox can pass through other colliders) instead of nontrigger colliders (hitbox is physical, so colliders will bump) b/c enemies will never bump into towers in the first place b/c of astar
+        GetComponent<CircleCollider2D>().radius = stats.circleColliderRadius; //sets the enemy hitbox. 
     }
 
     private void SetupMovementStrategy()
     {
         if (stats.pathfinding.movementType == EnemyMovementType.FLYING) stats.pathfinding.movementStrategy = new FlyingStrategy(this);
-        else if (stats.pathfinding.movementType == EnemyMovementType.GROUND) stats.pathfinding.movementStrategy = new GroundStrategy(this, FindAnyObjectByType<AStar>());
+        //FindAnyObjectByType<AStar>() searches the scene for the one astar algo object and passes 
+        //it to ground strategy for use. On awake(), we could store the astar algo and later pass the 
+        //single astar instance into gameManager and do GameManager.instance.AStar
+        else if (stats.pathfinding.movementType == EnemyMovementType.GROUND) stats.pathfinding.movementStrategy = new GroundStrategy(this, FindAnyObjectByType<AStar>()); 
     }
 
-    private void Update()
+    private void Update() //runs every frame
     {
+        //each enemy instance has its own stats
         if (!stats.record.isInitialized || stats.pathfinding.movementStrategy == null) return;
-        stats.pathfinding.movementStrategy.Move();
+        stats.pathfinding.movementStrategy.Move(); 
     }
 
     private void OnDestroy()

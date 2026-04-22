@@ -69,6 +69,7 @@ public class TowerAnimator : MonoBehaviour
         return idleSprites;
     }
 
+    //chooses the sprite from the list of sprites that best matches the angle that the tower is facing 
     private static Sprite SelectSprite(List<Sprite> sprites, float angle)
     {
         //if no sprites, return null, if 1 sprite, return that sprite

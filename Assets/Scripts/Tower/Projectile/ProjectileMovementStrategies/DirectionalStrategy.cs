@@ -13,6 +13,7 @@ public class DirectionalStrategy : IProjectileMovementStrategy
 
     public void Move()
     {
-        _projectile.transform.position += _direction * _projectile.GetSpeed() * Time.deltaTime;
+        _projectile.transform.position += _direction * _projectile.GetSpeed() * Time.deltaTime; //v=d/t, so d=vt
+
     }
 }

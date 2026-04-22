@@ -11,7 +11,7 @@ public class ClosestEnemyStrategy : IAimingStrategy
 
         foreach (Collider2D col in colliderInRanges)
         {
-            if (col.TryGetComponent<Enemy>(out var e))
+            if (col.TryGetComponent<Enemy>(out var e)) //out var e sets enemy to be e iff valid, otherwise it doesnt enter the if statement
             {
                 float distToTower = Vector3.Distance(towerPosition, e.transform.position);
 
@@ -23,13 +23,18 @@ public class ClosestEnemyStrategy : IAimingStrategy
             }
         }
 
-        AimingResult result = new AimingResult();
-        if (closest != null)
+        AimingResult result = new AimingResult(); //aiming result in IAimingStrategy
+
+        if (closest != null) //if there is a closest enemy
+
         {
-            result.enemy = closest;
+            result.enemy = closest; //sets the enemy in the aiming result to the closest enemy in ClosestEnemyStrategy
+
             result.targetPosition = closest.transform.position;
             result.shouldFire = true;
 
+            //takes direction vector (which points from tower to enemy) and takes the arctan of it
+            //to get the angle in rads, converts to degrees so sprites can use it
             Vector2 direction = result.targetPosition - towerPosition;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             result.lookingAngle = (angle + 360f) % 360f;
@@ -39,6 +44,7 @@ public class ClosestEnemyStrategy : IAimingStrategy
             result.shouldFire = false;
         }
 
-        return result;
+        return result; //above, we modified result, so we return it here. otherwise the modifications would do nothing
+
     }
 }

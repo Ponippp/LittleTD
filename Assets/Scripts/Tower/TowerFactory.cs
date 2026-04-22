@@ -25,8 +25,11 @@ public class TowerFactory : MonoBehaviour // not static due to needing start and
         Tower[] towers = FindObjectsByType<Tower>(FindObjectsSortMode.None);
         foreach (Tower tower in towers)
         {
-            if (tower != null && !tower.GetIsInitalized())
+            if (tower != null && !tower.GetIsInitalized()) //isInit is a private var, needs a getter
             {
+                //we have preset towers in the scene by default for testing. Initialize()
+                //gives them stats. by default in unity, all stats are 0, so it would have 0 range
+                //and 0 cooldown and 0 chill, but this gives them dmg, range, etc
                 tower.Initialize(CreateTowerStats(GetDataByType(tower.GetTowerType())));
                 Utility.SnapToTileCenter(tower.transform);
             }
@@ -44,7 +47,8 @@ public class TowerFactory : MonoBehaviour // not static due to needing start and
             Debug.LogError($"[TowerFactory] Missing prefab or data for {type}");
             return null;
         }
-
+        //we've alr initialized preset towers for testing, but if the user wanst to add more,
+        //we instantiate and initialize them here
         Tower towerInstance = Instantiate(prefab, position, Quaternion.identity);
 
         towerInstance.Initialize(CreateTowerStats(data));
@@ -55,7 +59,11 @@ public class TowerFactory : MonoBehaviour // not static due to needing start and
     public Tower.TowerStats CreateTowerStats(TowerData data)
     {
         Tower.TowerStats stats = new();
-        stats.range.baseF = data.baseRange;
+        //baseF is a custom float data type. with a normal float, if we wanted to boost the range by 
+        //20, we would do float+=20. If we applied several boosts and wanted to reset it back to the 
+        //default, it would not be easy. With baseF, the boosts are applied on top of the baseF, so 
+        //to reset the boosts, we just set baseF back to the default value.
+        stats.range.baseF = data.baseRange; 
         stats.fireInterval.baseF = data.baseFireInterval;
         stats.baseBulletSpreadAngle.baseF = data.baseBulletSpreadAngle;
         stats.projectilesFiredWithEachShot.baseI = data.baseProjectilesFiredWithEachShot;

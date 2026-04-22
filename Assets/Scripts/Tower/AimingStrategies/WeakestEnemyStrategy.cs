@@ -7,7 +7,7 @@ public class WeakestEnemyStrategy : IAimingStrategy
         Collider2D[] colliderInRanges = Physics2D.OverlapCircleAll(towerPosition, range, Utility.ENEMY__LAYERMASK);
 
         Enemy weakest = null;
-        float minHealth = Mathf.Infinity;
+        float minHealth = Mathf.Infinity; //could rename to leastHealth
 
         foreach (Collider2D col in colliderInRanges)
         {

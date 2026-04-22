@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewTowerData", menuName = "Bloodrush/TowerData")]
-public class TowerData : ScriptableObject
+public class TowerData : ScriptableObject //scriptable object is like a preset loader, no methods allowed, just setting defaults that can be changed at runtime
 {
     [Header("Base Tower Info")]
     public string towerName;
