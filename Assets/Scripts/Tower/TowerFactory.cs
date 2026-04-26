@@ -10,6 +10,7 @@ public class TowerFactory : MonoBehaviour // not static due to needing start and
     [Header("Tower Data (Defaults)")]
     [SerializeField] private TowerData gigaGatlingData;
     [SerializeField] private TowerData officeChairData;
+    [SerializeField] private TowerData juicyRagLauncherData;
     // other tower data would go here
 
 
@@ -96,6 +97,7 @@ public class TowerFactory : MonoBehaviour // not static due to needing start and
         {
             TowerType.GIGA_GATLING => gigaGatlingData,
             TowerType.OFFICE_CHAIR => officeChairData,
+            TowerType.JUICY_RAG_LAUNCHER => juicyRagLauncherData,
             _ => null,
         };
     }

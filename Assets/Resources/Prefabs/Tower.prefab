@@ -161,10 +161,33 @@ MonoBehaviour:
       boostF: 0
       multiplierF: 1
       multiplierDefaultIs0F: 0
-    towerState: 0
+    baseBulletSpreadAngle:
+      baseF: 0
+      boostF: 0
+      multiplierF: 1
+      multiplierDefaultIs0F: 0
+    projectilesFiredWithEachShot:
+      baseI: 0
+      boostI: 0
+      multiplierI: 1
+    baseReleaseTimeBetweenEachProjectileInBurst:
+      baseF: 0
+      boostF: 0
+      multiplierF: 1
+      multiplierDefaultIs0F: 0
+    currentTowerSellValue:
+      baseF: 0
+      boostF: 0
+      multiplierF: 1
+      multiplierDefaultIs0F: 0
     fireCooldown: 0
     aiming:
       type: 0
+      swivelSpeed:
+        baseF: 0
+        boostF: 0
+        multiplierF: 1
+        multiplierDefaultIs0F: 0
     projectile:
       speed:
         baseF: 0
@@ -179,16 +202,19 @@ MonoBehaviour:
       movementType: 0
     visual:
       fireAnimationTime: 0.1
-      rotationSpeed:
+      projectileSpawnRingBottomOffset: {x: 0, y: -0.2}
+      projectileSpawnRingRadius: 0.75
+      lastLookingAngle: 0
+    record:
+      totalDamageDealt: 0
+      towerName: 
+      towerDescription: 
+      baseTowerCost:
         baseF: 0
         boostF: 0
         multiplierF: 1
         multiplierDefaultIs0F: 0
-      projectileSpawnRingBottomOffset: {x: 0, y: -0.2}
-      projectileSpawnRingRadius: 0.75
-    record:
-      totalDamageDealt: 0
-      towerName: 
+      towerState: 0
       towerType: 0
       isInitalized: 0
 --- !u!61 &8770863917566818583
@@ -228,9 +254,9 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.54166675, y: 0.59677416}
-    oldSize: {x: 1.5, y: 1.9375}
-    newSize: {x: 1.5, y: 1.9375}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

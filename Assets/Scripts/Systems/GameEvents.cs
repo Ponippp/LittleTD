@@ -17,4 +17,11 @@ public class GameEvents
     public event Action OnTowerGridUpdated;
     public void TowerGridUpdated() { OnTowerGridUpdated?.Invoke(); }
     //===================================================================================================================
+    public event Action<Tower> OnTowerSelected; //need tower as a param to get range from specific tower instance
+    public void TowerSelected(Tower tower) 
+    { 
+        // Debug.Log($"[GameEvents] TowerSelected called with tower: {tower?.name}");
+        OnTowerSelected?.Invoke(tower); 
+    }
+    //===================================================================================================================
 }

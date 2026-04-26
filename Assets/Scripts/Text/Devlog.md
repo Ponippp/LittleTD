@@ -60,7 +60,7 @@
     - WILL USE Composite (Tower, TowerUpgrade)
     - WILL USE Facade (GameManager)
     - WILL USE Template (TowerAimingStrategy)
-- Do we need tests? Coverage? Theres no way right? As many tests involve passing active Unity GameObjects through them and modifying them at runtime which wouldn't really work in the Scene view or Game view. hmm.
+- No tests/coverage necessary
 
 ------------------------------------------------------------------
 ## Notable Bugs

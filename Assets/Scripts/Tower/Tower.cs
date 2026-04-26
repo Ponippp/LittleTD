@@ -6,6 +6,7 @@ public class Tower : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private SpriteRenderer spriteRenderer;
+    private SpriteRenderer[] spriteRenderers;
 
     [Header("Runtime Stats (Auto-filled by Factory/Configure)")]
     [SerializeField] private TowerStats stats = new();
@@ -65,8 +66,19 @@ public class Tower : MonoBehaviour
 
     private void Awake()
     {
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        if (spriteRenderer == null) Debug.LogError("[Tower] No SpriteRenderer component found on this GameObject.");
+        /*
+        A Tower prefab can have multiple child GameObjects each with their own SpriteRenderer.
+        for example all the diff tower angles and the range sprite. GetComponentsInChildren crawls the
+        entire hierarchy and collects all of them into an array so you can control them all at once.
+        */
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        if (spriteRenderers == null || spriteRenderers.Length == 0)
+        {
+            Debug.LogError("[Tower] No SpriteRenderer components found on this GameObject or its children.");
+            return;
+        }
+
+        spriteRenderer = spriteRenderers[0]; //grabs the first sprite renderer it finds as the main one for things like changing sorting order, but we can still change the sprite or color of all of them with SetSprite and SetColor functions that loop through the array
     }
 
     public void Initialize(TowerStats newStats)
@@ -179,9 +191,47 @@ public class Tower : MonoBehaviour
     public TowerType GetTowerType() { return stats.record.towerType; }
     public string GetTowerName() { return stats.record.towerName; }
     public bool GetIsInitalized() { return stats.record.isInitalized; }
+    public float GetTowerRange() => stats.range.BaseBoostedF;
 
     public void RecordDamageDealt(float damage) { stats.record.totalDamageDealt += damage; }
 
-    public void SetSprite(Sprite sprite) { if (spriteRenderer != null) spriteRenderer.sprite = sprite; }
-    public void SetColor(Color color) { if (spriteRenderer != null) spriteRenderer.color = color; }
+//setSprite and setColor functions loop through all sprite renderers on the tower and its children so that we can change the sprite or color of the entire tower at once
+    public void SetSprite(Sprite sprite)
+    {
+        if (spriteRenderers == null) return;
+        foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+        {
+            if (spriteRenderer != null) spriteRenderer.sprite = sprite;
+        }
+    }
+
+    public void SetColor(Color color)
+    {
+        if (spriteRenderers == null) return;
+        foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+        {
+            if (spriteRenderer != null) spriteRenderer.color = color;
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        //debugging:
+        // Debug.Log($"[Tower] Tower clicked: {gameObject.name}");
+        // // Temporary visual feedback - change color to red when clicked
+        // SetColor(Color.red);
+        // // Reset color after 0.5 seconds
+        // StartCoroutine(ResetColorAfterDelay(0.5f));
+        //
+
+        EventsManager.instance.gameEvents.TowerSelected(this);
+    }
+
+    //debugging fucntion
+    // private System.Collections.IEnumerator ResetColorAfterDelay(float delay)
+    // {
+    //     yield return new WaitForSeconds(delay);
+    //     SetColor(Color.white); // Assuming default color is white
+    // }
+
 }

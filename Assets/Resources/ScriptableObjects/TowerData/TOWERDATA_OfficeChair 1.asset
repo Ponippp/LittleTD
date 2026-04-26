@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13aa233ec15e44f28a081965a38be696, type: 3}
+  m_Name: TOWERDATA_OfficeChair 1
+  m_EditorClassIdentifier: 
+  towerName: OfficeChair
+  towerType: 1
+  towerDescription: tommyToughknuckles
+  baseTowerCost: 650
+  baseRange: 7
+  baseFireInterval: 0.25
+  baseBulletSpreadAngle: 15
+  baseProjectilesFiredWithEachShot: 5
+  baseReleaseTimeBetweenEachProjectileInBurst: 0.05
+  towerAimingType: 0
+  baseTowerSwivelSpeed: 181
+  baseAimingWindowWhereTowerCanShootAtEnemyRadians: 0
+  baseProjectileSpeed: 10
+  baseProjectileDamage: 1
+  projectileMovementType: 0
+  fireAnimationTime: 0.11
+  projectileSpawnRingBottomOffset: {x: 0, y: -0.5}
+  projectileSpawnRingRadius: 1.5

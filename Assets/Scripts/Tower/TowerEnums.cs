@@ -14,8 +14,8 @@ public enum ProjectileMovementType
 public enum TowerType
 {
     GIGA_GATLING,
-    OFFICE_CHAIR
-    // JUICY_RAG_LAUNCHER,
+    OFFICE_CHAIR,
+    JUICY_RAG_LAUNCHER
 }
 
 public enum TowerAimingType
