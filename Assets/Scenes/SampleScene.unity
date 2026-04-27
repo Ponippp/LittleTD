@@ -818,6 +818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gigaGatlingData: {fileID: 11400000, guid: 72cd4ac9f00b249b68b6773a5892a555, type: 2}
   officeChairData: {fileID: 11400000, guid: 826e31556cfae428fa75ea9ce6ce6dbe, type: 2}
+  juicyRagLauncherData: {fileID: 0}
 --- !u!4 &330547748
 Transform:
   m_ObjectHideFlags: 0
@@ -2231,6 +2232,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!212 &753771176 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8596009442979218003, guid: eaf3cadd8f8de4a579eff9cb133dca4e, type: 3}
+  m_PrefabInstance: {fileID: 1396819545}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &769301516
 GameObject:
   m_ObjectHideFlags: 0
@@ -5445,6 +5451,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2758820704500782170, guid: eaf3cadd8f8de4a579eff9cb133dca4e, type: 3}
+      propertyPath: barWidth
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758820704500782170, guid: eaf3cadd8f8de4a579eff9cb133dca4e, type: 3}
+      propertyPath: barHeight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758820704500782170, guid: eaf3cadd8f8de4a579eff9cb133dca4e, type: 3}
+      propertyPath: _spriteRenderer
+      value: 
+      objectReference: {fileID: 753771176}
     - target: {fileID: 5808983587534601481, guid: eaf3cadd8f8de4a579eff9cb133dca4e, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -6776,6 +6794,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bcac29436e304d06935c006130f1dfd, type: 3}
+--- !u!1001 &1896544148
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5287388857990815316, guid: 828ab3b724ba8f843a9e049269eba87d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5287388857990815316, guid: 828ab3b724ba8f843a9e049269eba87d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5287388857990815316, guid: 828ab3b724ba8f843a9e049269eba87d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5287388857990815316, guid: 828ab3b724ba8f843a9e049269eba87d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5287388857990815316, guid: 828ab3b724ba8f843a9e049269eba87d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5287388857990815316, guid: 828ab3b724ba8f843a9e049269eba87d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5287388857990815316, guid: 828ab3b724ba8f843a9e049269eba87d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5287388857990815316, guid: 828ab3b724ba8f843a9e049269eba87d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5287388857990815316, guid: 828ab3b724ba8f843a9e049269eba87d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5287388857990815316, guid: 828ab3b724ba8f843a9e049269eba87d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6992876999750878943, guid: 828ab3b724ba8f843a9e049269eba87d, type: 3}
+      propertyPath: m_Color.a
+      value: 0.03137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 7281154421722116713, guid: 828ab3b724ba8f843a9e049269eba87d, type: 3}
+      propertyPath: m_Name
+      value: TowerRangeDisplay
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 828ab3b724ba8f843a9e049269eba87d, type: 3}
 --- !u!1001 &1911171783
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7569,6 +7648,7 @@ SceneRoots:
   - {fileID: 1091803577}
   - {fileID: 1017837551}
   - {fileID: 262991615}
+  - {fileID: 1896544148}
   - {fileID: 1396819545}
   - {fileID: 1782417173}
   - {fileID: 4770934820051058225}
