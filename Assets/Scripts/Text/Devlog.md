@@ -60,7 +60,7 @@
     - WILL USE Composite (Tower, TowerUpgrade)
     - WILL USE Facade (GameManager)
     - WILL USE Template (TowerAimingStrategy)
-- No tests/coverage necessary
+- 50% tests/coverage necessary
 
 ------------------------------------------------------------------
 ## Notable Bugs

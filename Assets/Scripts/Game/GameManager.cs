@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private AnimatorOverrideController overrideController;
 
+    [Header("Coins")]
+    [SerializeField] private int startingCoins = 2000;
+    private int currentCoins;
+
     /// <summary>Template duplicated per enemy; assign EnemyAnimatorOverrideController in the inspector.</summary>
     public static AnimatorOverrideController EnemyAnimatorOverrideTemplate => instance != null ? instance.overrideController : null;
 
@@ -34,6 +38,8 @@ public class GameManager : MonoBehaviour
         instance = this;
         Utility.InitializeLayerMasks();
         SetupObjectPools();
+
+        currentCoins = startingCoins;
     }
 
     private void SetupObjectPools()
@@ -60,6 +66,8 @@ public class GameManager : MonoBehaviour
         //we drill in from EventsManager just for these because EventsManager is part of the observer pattern
         EventsManager.instance.gameEvents.SetupNewAStarGrid(gridHeight, gridWidth, gridOffset, floorTilemap);
         yield return null; // Wait one frame to ensure all objects (Enemies, Towers) have initialized and subscribed to events
+
+        EventsManager.instance.gameEvents.CoinsUpdated(currentCoins);
         EventsManager.instance.gameEvents.TowerGridUpdated();
     }
 
@@ -73,4 +81,20 @@ public class GameManager : MonoBehaviour
     public int GetGridHeight() => gridHeight;
     public int GetGridWidth() => gridWidth;
     public Vector3 GetGridOffset() => gridOffset;
+
+    public int GetCurrentCoins() => currentCoins;
+
+    public bool TrySpendCoins(int amount) //return false if not enough coins
+    {
+        if (amount > currentCoins) return false;
+        currentCoins -= amount;
+        EventsManager.instance.gameEvents.CoinsUpdated(currentCoins);
+        return true;
+    }
+
+    public void AddCoins(int amount)
+    {
+        currentCoins += amount;
+        EventsManager.instance.gameEvents.CoinsUpdated(currentCoins);
+    }
 }

@@ -126,6 +126,19 @@ public class TowerPlacer : MonoBehaviour
     private void PlaceTower()
     {
         TowerData data = TowerFactory.Instance.GetDataByType(defaultTowerType);
+        if (data == null)
+        {
+            Debug.LogError("[TowerPlacer] Missing tower data for placement.");
+            return;
+        }
+
+        int cost = data.baseTowerCost;
+        if (!GameManager.instance.TrySpendCoins(cost)) //tryspendcoins returns false if not enough coins
+        {
+            Debug.LogWarning($"[TowerPlacer] Not enough coins to place {defaultTowerType}. Cost: {cost}, coins: {GameManager.instance.GetCurrentCoins()}");
+            return;
+        }
+
         _ghostTower.Initialize(TowerFactory.Instance.CreateTowerStats(data));
         _ghostTower = null;
         _lastGridPos = new Vector3Int(-999, -999, -999);

@@ -24,4 +24,7 @@ public class GameEvents
         OnTowerSelected?.Invoke(tower); 
     }
     //===================================================================================================================
+    public event Action<int> OnCoinsUpdated;
+    public void CoinsUpdated(int coins) { OnCoinsUpdated?.Invoke(coins); }
+    //===================================================================================================================
 }
