@@ -108,7 +108,7 @@ public class Tower : MonoBehaviour
 
     private void Update()
     {
-        if (!stats.record.isInitalized) return; //need to have tower data initialized before updateAiming each frame b/c update aiming relies on tower fire rate/cooldown
+        if (!stats.record.isInitalized || !GameManager.instance.GetGameActive()) return; //need to have tower data initialized before updateAiming each frame b/c update aiming relies on tower fire rate/cooldown
         UpdateAiming();
     }
 

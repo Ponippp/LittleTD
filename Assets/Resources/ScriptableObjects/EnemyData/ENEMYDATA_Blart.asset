@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Blart
   enemyType: 2
-  health: 250
+  health: 100
   speed: 1.5
   circleColliderRadius: 0.45
   animationSpeedPercentage: 100
   movementType: 0
+  coinsDroppedOnKill: 150

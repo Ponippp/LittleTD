@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Cromenockle
   enemyType: 1
-  health: 500
+  health: 50
   speed: 3
   circleColliderRadius: 0.5
   animationSpeedPercentage: 200
   movementType: 0
+  coinsDroppedOnKill: 400

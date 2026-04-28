@@ -172,8 +172,8 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 8596009442979218003}
   sortingOrder: 100
   offset: {x: 0, y: -2.5, z: 0}
-  barWidth: 20
-  barHeight: 5
+  barWidth: 10
+  barHeight: 4
 --- !u!212 &8596009442979218003
 SpriteRenderer:
   m_ObjectHideFlags: 0

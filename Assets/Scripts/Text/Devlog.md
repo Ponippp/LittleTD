@@ -57,6 +57,7 @@
     - USING Strategy
     - USING Singleton
     - USING Observer
+    - USING Factory
     - WILL USE Composite (Tower, TowerUpgrade)
     - WILL USE Facade (GameManager)
     - WILL USE Template (TowerAimingStrategy)

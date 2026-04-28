@@ -17,7 +17,7 @@ public class EnemyHealthDisplay : MonoBehaviour
         if (_spriteRenderer == null) _spriteRenderer = GetComponent<SpriteRenderer>();
         if (_spriteRenderer == null)
         {
-            Debug.LogError($"[EnemyHealthDisplay] No SpriteRenderer found on {gameObject.name}");
+            // Debug.LogError($"[EnemyHealthDisplay] No SpriteRenderer found on {gameObject.name}");
             return;
         }
 
@@ -30,11 +30,11 @@ public class EnemyHealthDisplay : MonoBehaviour
 
         if (_enemy == null)
         {
-            Debug.LogError($"[EnemyHealthDisplay] No Enemy component found on {gameObject.name} or its parents");
+            // Debug.LogError($"[EnemyHealthDisplay] No Enemy component found on {gameObject.name} or its parents");
             return;
         }
 
-        Debug.Log($"[EnemyHealthDisplay] Found enemy {_enemy.name}, waiting for initialization");
+        // Debug.Log($"[EnemyHealthDisplay] Found enemy {_enemy.name}, waiting for initialization");
     }
 
     private void Update() //want to reposition and adjust health bar every frame
@@ -49,7 +49,7 @@ public class EnemyHealthDisplay : MonoBehaviour
             _maxHealth = _enemy.GetHealth();
             if (_maxHealth <= 0f) _maxHealth = 1f;
             _isInitialized = true;
-            Debug.Log($"[EnemyHealthDisplay] Initialized for enemy {_enemy.name} with max health {_maxHealth}");
+            // Debug.Log($"[EnemyHealthDisplay] Initialized for enemy {_enemy.name} with max health {_maxHealth}");
         }
 
         // Position below the enemy

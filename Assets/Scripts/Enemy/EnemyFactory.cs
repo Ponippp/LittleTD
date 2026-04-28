@@ -18,7 +18,7 @@ public class EnemyFactory : MonoBehaviour
 
     private void Start() //runs after Awake(), think of it liek a priority queue
     {
-        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None); 
+        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
         foreach (Enemy enemy in enemies)
         {
             if (enemy != null && !enemy.GetIsInitialized())
@@ -30,6 +30,7 @@ public class EnemyFactory : MonoBehaviour
         }
     }
 
+    public Enemy CreateEnemy(EnemyType type) => CreateEnemy(type, GameManager.instance.GetEnemySpawnPoint());
     public Enemy CreateEnemy(EnemyType type, Vector3 spawnPosition)
     {
         GameObject prefabGo = GameManager.instance.GetEnemyPrefab(); //enemy prefab is the enemy game object
@@ -57,6 +58,7 @@ public class EnemyFactory : MonoBehaviour
             speed = data.speed,
             circleColliderRadius = data.circleColliderRadius,
             animationSpeedPercentage = data.animationSpeedPercentage,
+            coinsDroppedOnKill = data.coinsDroppedOnKill,
             pathfinding = new Enemy.EnemyStats.Pathfinding
             {
                 movementType = data.movementType, //overwriting movement type from pathfinding class

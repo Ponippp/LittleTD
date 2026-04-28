@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
         public int animationSpeedPercentage = 100;
         public Pathfinding pathfinding = new();
         public Record record = new();
+        public int coinsDroppedOnKill = 0;
 
         [Serializable]
         public class Pathfinding
@@ -52,15 +53,22 @@ public class Enemy : MonoBehaviour
         //FindAnyObjectByType<AStar>() searches the scene for the one astar algo object and passes 
         //it to ground strategy for use. On awake(), we could store the astar algo and later pass the 
         //single astar instance into gameManager and do GameManager.instance.AStar
-        else if (stats.pathfinding.movementType == EnemyMovementType.GROUND) stats.pathfinding.movementStrategy = new GroundStrategy(this, FindAnyObjectByType<AStar>()); 
+        else if (stats.pathfinding.movementType == EnemyMovementType.GROUND) stats.pathfinding.movementStrategy = new GroundStrategy(this, FindAnyObjectByType<AStar>());
     }
 
     private void Update() //runs every frame
     {
         //each enemy instance has its own stats
-        if (!stats.record.isInitialized || stats.pathfinding.movementStrategy == null) return;
-        stats.pathfinding.movementStrategy.Move(); 
+        if (!stats.record.isInitialized || stats.pathfinding.movementStrategy == null || !GameManager.instance.GetGameActive()) return;
+        stats.pathfinding.movementStrategy.Move();
+        if (EnemyAtEndOfJourney())
+        {
+            GameManager.instance.TrySubtractLife(1);
+            Destroy(gameObject);
+        }
     }
+
+    private bool EnemyAtEndOfJourney() => Vector3.Distance(transform.position, GameManager.instance.GetEnemyGoalPoint()) < 0.1f;
 
     private void OnDestroy()
     {
@@ -70,7 +78,11 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float damage)
     {
         stats.health -= damage;
-        if (stats.health <= 0) Destroy(gameObject);
+        if (stats.health <= 0)
+        {
+            GameManager.instance.AddCoins(stats.coinsDroppedOnKill);
+            Destroy(gameObject);
+        }
     }
 
     public void SetMovementStrategy(IEnemyMovementStrategy movementStrategy) => stats.pathfinding.movementStrategy = movementStrategy;

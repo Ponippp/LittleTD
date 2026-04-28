@@ -17,14 +17,14 @@ MonoBehaviour:
   towerDescription: 
   baseTowerCost: 650
   baseRange: 4
-  baseFireInterval: 0.66
+  baseFireInterval: 0.33
   baseBulletSpreadAngle: 0
-  baseProjectilesFiredWithEachShot: 2
+  baseProjectilesFiredWithEachShot: 1
   baseReleaseTimeBetweenEachProjectileInBurst: 0.05
   towerAimingType: 0
   baseTowerSwivelSpeed: 180
   baseProjectileSpeed: 15
-  baseProjectileDamage: 2
+  baseProjectileDamage: 3
   projectileMovementType: 0
   fireAnimationTime: 0.1
   projectileSpawnRingBottomOffset: {x: 0, y: -0.2}

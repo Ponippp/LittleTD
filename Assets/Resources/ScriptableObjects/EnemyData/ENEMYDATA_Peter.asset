@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Peter
   enemyType: 3
-  health: 150
-  speed: 1
+  health: 75
+  speed: 5
   circleColliderRadius: 0.3
   animationSpeedPercentage: 130
   movementType: 1
+  coinsDroppedOnKill: 7

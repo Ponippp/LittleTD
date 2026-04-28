@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections;
+using System.Security;
 
 //TODO:
 /*
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     [Header("Game State")]
     [SerializeField] private Vector3 enemySpawnPoint;
     [SerializeField] private Vector3 enemyGoalPoint;
+    [SerializeField] private bool gameActive = true;
     [Header("Prefabs")]
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private GameObject towerPrefab;
@@ -28,6 +30,13 @@ public class GameManager : MonoBehaviour
     [Header("Coins")]
     [SerializeField] private int startingCoins = 2000;
     private int currentCoins;
+
+    [Header("Lives")]
+    [SerializeField] private int startingLives = 100;
+    private int currentLives;
+
+    [Header("Waves")]
+    [SerializeField] private int currentWaveIndex = 0;
 
     /// <summary>Template duplicated per enemy; assign EnemyAnimatorOverrideController in the inspector.</summary>
     public static AnimatorOverrideController EnemyAnimatorOverrideTemplate => instance != null ? instance.overrideController : null;
@@ -40,6 +49,7 @@ public class GameManager : MonoBehaviour
         SetupObjectPools();
 
         currentCoins = startingCoins;
+        currentLives = startingLives;
     }
 
     private void SetupObjectPools()
@@ -60,7 +70,7 @@ public class GameManager : MonoBehaviour
     /// since we have a yield retunr null. If we didn't make it IEnumerator, the rest of our code 
     /// would have to wait a frame to execute making the gameplay janky
     /// </summary>
-    private IEnumerator Start() 
+    private IEnumerator Start()
     {
         //both the methods in EventsManager are notifiers, sending updates to subscribers using observer pattern
         //we drill in from EventsManager just for these because EventsManager is part of the observer pattern
@@ -83,6 +93,11 @@ public class GameManager : MonoBehaviour
     public Vector3 GetGridOffset() => gridOffset;
 
     public int GetCurrentCoins() => currentCoins;
+    public int GetCurrentLives() => currentLives;
+    public int GetCurrentWaveIndex() => currentWaveIndex;
+    public void SetCurrentWaveIndex(int wave) { currentWaveIndex = wave; }
+
+    public bool GetGameActive() => gameActive;
 
     public bool TrySpendCoins(int amount) //return false if not enough coins
     {
@@ -96,5 +111,17 @@ public class GameManager : MonoBehaviour
     {
         currentCoins += amount;
         EventsManager.instance.gameEvents.CoinsUpdated(currentCoins);
+    }
+
+    public void TrySubtractLife(int amount)
+    {
+        currentLives -= amount;
+        EventsManager.instance.gameEvents.LivesUpdated(currentLives);
+        if (currentLives <= 0)
+        {
+            EventsManager.instance.gameEvents.ToggleGameOverText();
+            gameActive = false;
+            // end game
+        }
     }
 }

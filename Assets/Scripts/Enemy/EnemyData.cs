@@ -13,4 +13,5 @@ public class EnemyData : ScriptableObject
     public float circleColliderRadius = 0.3f;
     public int animationSpeedPercentage = 100;
     public EnemyMovementType movementType = EnemyMovementType.GROUND;
+    public int coinsDroppedOnKill = 50;
 }

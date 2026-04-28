@@ -27,4 +27,14 @@ public class GameEvents
     public event Action<int> OnCoinsUpdated;
     public void CoinsUpdated(int coins) { OnCoinsUpdated?.Invoke(coins); }
     //===================================================================================================================
+    public event Action<int> OnLivesUpdated;
+    public void LivesUpdated(int lives) { OnLivesUpdated?.Invoke(lives); }
+    //===================================================================================================================
+    public event Action OnToggleGameOverText;
+    public void ToggleGameOverText() { OnToggleGameOverText?.Invoke(); }
+    //===================================================================================================================
+    public event Action<int> OnWaveUpdated;
+    public void WaveUpdated(int wave) { OnWaveUpdated?.Invoke(wave); }
+    //===================================================================================================================
+    
 }
