@@ -735,7 +735,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lives
+  m_text: 'Lives: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 787f8604a122f41fbabee371fcac00c9, type: 2}
   m_sharedMaterial: {fileID: -9151754337344360658, guid: 787f8604a122f41fbabee371fcac00c9, type: 2}
@@ -1695,7 +1695,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Coins
+  m_text: 'Coins: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 787f8604a122f41fbabee371fcac00c9, type: 2}
   m_sharedMaterial: {fileID: -9151754337344360658, guid: 787f8604a122f41fbabee371fcac00c9, type: 2}
@@ -4757,7 +4757,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wave
+  m_text: 'Wave: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 787f8604a122f41fbabee371fcac00c9, type: 2}
   m_sharedMaterial: {fileID: -9151754337344360658, guid: 787f8604a122f41fbabee371fcac00c9, type: 2}
