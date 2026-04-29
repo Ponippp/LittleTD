@@ -86,10 +86,6 @@ public class GameManager : MonoBehaviour
     public Tilemap GetFloorTilemap() => floorTilemap;
     public GameObject GetTowerPrefab() => towerPrefab;
     public GameObject GetEnemyPrefab() => enemyPrefab;
-    // public GameObject GetProjectilePrefab() => projectilePrefab;
-    public AnimatorOverrideController GetAnimatorOverrideController() => overrideController;
-    public int GetGridHeight() => gridHeight;
-    public int GetGridWidth() => gridWidth;
     public Vector3 GetGridOffset() => gridOffset;
 
     public int GetCurrentCoins() => currentCoins;

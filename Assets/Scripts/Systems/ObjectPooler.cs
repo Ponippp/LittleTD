@@ -116,68 +116,37 @@ public static class ObjectPooler
         }
     }
 
-    public static int GetCurrentActivePoolSize(string key)
-    {
-        return poolMaxSizeDictionary[key] - poolDictionary[key].Count;
-    }
+    // public static void DestroyPool(string key)
+    // {
+    //     if (!poolDictionary.ContainsKey(key))
+    //     {
+    //         Debug.LogWarning($"Attempted to destroy non-existent pool: {key}");
+    //         return;
+    //     }
 
-    public static void DestroyPool(string key)
-    {
-        if (!poolDictionary.ContainsKey(key))
-        {
-            Debug.LogWarning($"Attempted to destroy non-existent pool: {key}");
-            return;
-        }
+    //     // Destroy all pooled objects
+    //     while (poolDictionary[key].Count > 0)
+    //     {
+    //         var obj = poolDictionary[key].Dequeue();
+    //         if (obj != null)
+    //         {
+    //             Object.Destroy(obj.gameObject);
+    //         }
+    //     }
 
-        // Destroy all pooled objects
-        while (poolDictionary[key].Count > 0)
-        {
-            var obj = poolDictionary[key].Dequeue();
-            if (obj != null)
-            {
-                Object.Destroy(obj.gameObject);
-            }
-        }
+    //     // Destroy the parent object
+    //     if (poolParentObjects.TryGetValue(key, out GameObject parent))
+    //     {
+    //         Object.Destroy(parent);
+    //         poolParentObjects.Remove(key);
+    //     }
 
-        // Destroy the parent object
-        if (poolParentObjects.TryGetValue(key, out GameObject parent))
-        {
-            Object.Destroy(parent);
-            poolParentObjects.Remove(key);
-        }
+    //     // Clean up dictionaries
+    //     poolDictionary.Remove(key);
+    //     poolLookup.Remove(key);
+    //     poolMaxSizeDictionary.Remove(key);
 
-        // Clean up dictionaries
-        poolDictionary.Remove(key);
-        poolLookup.Remove(key);
-        poolMaxSizeDictionary.Remove(key);
+    //     UpdateNames();
+    // }
 
-        UpdateNames();
-    }
-
-    public static void DestroyAllPools()
-    {
-        List<string> poolKeys = new List<string>(poolDictionary.Keys);
-        foreach (string key in poolKeys)
-        {
-            DestroyPool(key);
-        }
-
-        if (OBJECTPOOLS_ROOT != null)
-        {
-            Object.Destroy(OBJECTPOOLS_ROOT);
-        }
-
-        // Clear all dictionaries
-        poolDictionary.Clear();
-        poolLookup.Clear();
-        poolMaxSizeDictionary.Clear();
-        poolParentObjects.Clear();
-
-        UpdateNames();
-    }
-
-    public static bool PoolExists(string key)
-    {
-        return poolDictionary.ContainsKey(key);
-    }
 }

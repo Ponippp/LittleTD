@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CoverageReport scope="Summary">
+  <Summary>
+    <Generatedon>4/29/2026 - 12:32:45 AM</Generatedon>
+    <Parser>MultiReportParser (2x OpenCoverParser)</Parser>
+    <Assemblies>2</Assemblies>
+    <Classes>52</Classes>
+    <Files>51</Files>
+    <Coveredlines>1224</Coveredlines>
+    <Uncoveredlines>993</Uncoveredlines>
+    <Coverablelines>2217</Coverablelines>
+    <Totallines>4402</Totallines>
+    <Linecoverage>55.2</Linecoverage>
+    <Coveredbranches>0</Coveredbranches>
+    <Totalbranches>0</Totalbranches>
+    <Coveredmethods>157</Coveredmethods>
+    <Totalmethods>314</Totalmethods>
+    <Methodcoverage>50</Methodcoverage>
+  </Summary>
+  <Coverage>
+    <Assembly name="Assembly-CSharp" classes="40" coverage="39.1" coveredlines="631" coverablelines="1610" totallines="3803" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="90" totalmethods="242" methodcoverage="37.1">
+      <Class name="AStar" coverage="52.6" coveredlines="140" coverablelines="266" totallines="480" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="13" totalmethods="23" methodcoverage="56.5" />
+      <Class name="AStarNode" coverage="100" coveredlines="10" coverablelines="10" totallines="27" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="BaseBoostedFloat" coverage="100" coveredlines="5" coverablelines="5" totallines="382" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="BaseBoostedInt" coverage="100" coveredlines="4" coverablelines="4" totallines="382" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="ClosestEnemyStrategy" coverage="90.3" coveredlines="28" coverablelines="31" totallines="50" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="CoinDisplay" coverage="0" coveredlines="0" coverablelines="30" totallines="64" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="6" methodcoverage="0" />
+      <Class name="DirectionalStrategy" coverage="100" coveredlines="8" coverablelines="8" totallines="19" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="Enemy" coverage="31.4" coveredlines="17" coverablelines="54" totallines="98" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="18" methodcoverage="38.8" />
+      <Class name="EnemyAnimator" coverage="0" coveredlines="0" coverablelines="93" totallines="163" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="9" methodcoverage="0" />
+      <Class name="EnemyData" coverage="100" coveredlines="7" coverablelines="7" totallines="17" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="EnemyFactory" coverage="25" coveredlines="10" coverablelines="40" totallines="85" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="8" methodcoverage="25" />
+      <Class name="EnemyHealthDisplay" coverage="0" coveredlines="0" coverablelines="37" totallines="77" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="EventsManager" coverage="66.6" coveredlines="6" coverablelines="9" totallines="18" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="FirstEnemyStrategy" coverage="90.3" coveredlines="28" coverablelines="31" totallines="49" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="FlyingStrategy" coverage="0" coveredlines="0" coverablelines="10" totallines="26" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
+      <Class name="GameEvents" coverage="100" coveredlines="9" coverablelines="9" totallines="40" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="7" methodcoverage="100" />
+      <Class name="GameManager" coverage="51.7" coveredlines="29" coverablelines="56" totallines="123" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="21" methodcoverage="33.3" />
+      <Class name="GameOverDisplay" coverage="0" coveredlines="0" coverablelines="28" totallines="48" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="7" methodcoverage="0" />
+      <Class name="GroundStrategy" coverage="0" coveredlines="0" coverablelines="37" totallines="68" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="5" methodcoverage="0" />
+      <Class name="HomingStrategy" coverage="100" coveredlines="12" coverablelines="12" totallines="24" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="LastEnemyStrategy" coverage="90.3" coveredlines="28" coverablelines="31" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="LivesDisplay" coverage="0" coveredlines="0" coverablelines="30" totallines="64" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="6" methodcoverage="0" />
+      <Class name="ObjectPooler" coverage="96" coveredlines="73" coverablelines="76" totallines="152" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100" />
+      <Class name="Projectile" coverage="68.6" coveredlines="35" coverablelines="51" totallines="97" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="8" totalmethods="9" methodcoverage="88.8" />
+      <Class name="ProjectileData" coverage="100" coveredlines="8" coverablelines="8" totallines="16" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="SpinStrategy" coverage="100" coveredlines="15" coverablelines="15" totallines="31" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="SpriteLoader" coverage="44.6" coveredlines="21" coverablelines="47" totallines="91" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="7" methodcoverage="57.1" />
+      <Class name="StrongestEnemyStrategy" coverage="90.3" coveredlines="28" coverablelines="31" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="Tower" coverage="20.4" coveredlines="26" coverablelines="127" totallines="237" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="25" methodcoverage="24" />
+      <Class name="TowerAnimator" coverage="0" coveredlines="0" coverablelines="48" totallines="87" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="10" methodcoverage="0" />
+      <Class name="TowerData" coverage="100" coveredlines="14" coverablelines="14" totallines="54" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="TowerFactory" coverage="49" coveredlines="27" coverablelines="55" totallines="105" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="7" methodcoverage="28.5" />
+      <Class name="TowerPlacer" coverage="0" coveredlines="0" coverablelines="93" totallines="158" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="10" methodcoverage="0" />
+      <Class name="TowerRangeDisplay" coverage="0" coveredlines="0" coverablelines="37" totallines="57" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="5" methodcoverage="0" />
+      <Class name="Utility" coverage="24.4" coveredlines="12" coverablelines="49" totallines="115" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="7" methodcoverage="28.5" />
+      <Class name="UtilityLibrary" coverage="0" coveredlines="0" coverablelines="6" totallines="22" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="WaveData" coverage="100" coveredlines="3" coverablelines="3" totallines="9" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="WaveDisplay" coverage="0" coveredlines="0" coverablelines="30" totallines="64" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="6" methodcoverage="0" />
+      <Class name="WaveManager" coverage="0" coveredlines="0" coverablelines="51" totallines="72" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
+      <Class name="WeakestEnemyStrategy" coverage="90.3" coveredlines="28" coverablelines="31" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+    </Assembly>
+    <Assembly name="Assembly-CSharp-Editor" classes="12" coverage="97.6" coveredlines="593" coverablelines="607" totallines="981" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="67" totalmethods="72" methodcoverage="93">
+      <Class name="AStarCoverageTests" coverage="100" coveredlines="75" coverablelines="75" totallines="123" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="8" totalmethods="8" methodcoverage="100" />
+      <Class name="AStarNodeTests" coverage="100" coveredlines="13" coverablelines="13" totallines="29" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="EnemyCoverageTests" coverage="96.9" coveredlines="64" coverablelines="66" totallines="107" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="8" totalmethods="10" methodcoverage="80" />
+      <Class name="EnumTests" coverage="100" coveredlines="14" coverablelines="14" totallines="27" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="ObjectPoolerAndHomingCoverageTests" coverage="100" coveredlines="63" coverablelines="63" totallines="104" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="7" methodcoverage="100" />
+      <Class name="ProjectileCoverageTests" coverage="100" coveredlines="39" coverablelines="39" totallines="72" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100" />
+      <Class name="ScriptableObjectDefaultsTests" coverage="100" coveredlines="44" coverablelines="44" totallines="65" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="4" methodcoverage="100" />
+      <Class name="SpriteLoaderAndGameManagerCoverageTests" coverage="100" coveredlines="55" coverablelines="55" totallines="83" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100" />
+      <Class name="StrategiesAndEventsCoverageTests" coverage="91.3" coveredlines="127" coverablelines="139" totallines="195" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="12" totalmethods="15" methodcoverage="80" />
+      <Class name="TowerFactoryCoverageTests" coverage="100" coveredlines="56" coverablelines="56" totallines="76" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="UtilityClassesCoverageTests" coverage="100" coveredlines="25" coverablelines="25" totallines="56" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="4" methodcoverage="100" />
+      <Class name="UtilityTests" coverage="100" coveredlines="18" coverablelines="18" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="4" methodcoverage="100" />
+    </Assembly>
+  </Coverage>
+</CoverageReport>

@@ -95,5 +95,4 @@ public class Enemy : MonoBehaviour
     public string GetName() => stats.enemyName;
     public int GetAnimationSpeedPercentage() => stats.animationSpeedPercentage;
     public Vector3 GetGoalPoint() => stats.pathfinding.goalPoint;
-    public Vector3 GetSpawnPoint() => stats.pathfinding.spawnPoint;
 }

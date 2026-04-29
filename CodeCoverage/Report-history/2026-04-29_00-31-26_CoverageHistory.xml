@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<coverage version="1.0" date="2026-04-29_00-31-26" tag="">
+  <assembly name="Assembly-CSharp">
+    <class name="AStar" coveredlines="140" coverablelines="266" totallines="480" coveredbranches="0" totalbranches="0" />
+    <class name="AStarNode" coveredlines="10" coverablelines="10" totallines="27" coveredbranches="0" totalbranches="0" />
+    <class name="BaseBoostedFloat" coveredlines="5" coverablelines="5" totallines="382" coveredbranches="0" totalbranches="0" />
+    <class name="BaseBoostedInt" coveredlines="4" coverablelines="4" totallines="382" coveredbranches="0" totalbranches="0" />
+    <class name="ClosestEnemyStrategy" coveredlines="28" coverablelines="31" totallines="50" coveredbranches="0" totalbranches="0" />
+    <class name="CoinDisplay" coveredlines="0" coverablelines="30" totallines="64" coveredbranches="0" totalbranches="0" />
+    <class name="DirectionalStrategy" coveredlines="8" coverablelines="8" totallines="19" coveredbranches="0" totalbranches="0" />
+    <class name="Enemy" coveredlines="17" coverablelines="54" totallines="98" coveredbranches="0" totalbranches="0" />
+    <class name="EnemyAnimator" coveredlines="0" coverablelines="93" totallines="163" coveredbranches="0" totalbranches="0" />
+    <class name="EnemyData" coveredlines="7" coverablelines="7" totallines="17" coveredbranches="0" totalbranches="0" />
+    <class name="EnemyFactory" coveredlines="10" coverablelines="40" totallines="85" coveredbranches="0" totalbranches="0" />
+    <class name="EnemyHealthDisplay" coveredlines="0" coverablelines="37" totallines="77" coveredbranches="0" totalbranches="0" />
+    <class name="EventsManager" coveredlines="9" coverablelines="9" totallines="18" coveredbranches="0" totalbranches="0" />
+    <class name="FirstEnemyStrategy" coveredlines="28" coverablelines="31" totallines="49" coveredbranches="0" totalbranches="0" />
+    <class name="FlyingStrategy" coveredlines="0" coverablelines="10" totallines="26" coveredbranches="0" totalbranches="0" />
+    <class name="GameEvents" coveredlines="8" coverablelines="9" totallines="40" coveredbranches="0" totalbranches="0" />
+    <class name="GameManager" coveredlines="29" coverablelines="56" totallines="123" coveredbranches="0" totalbranches="0" />
+    <class name="GameOverDisplay" coveredlines="0" coverablelines="28" totallines="48" coveredbranches="0" totalbranches="0" />
+    <class name="GroundStrategy" coveredlines="0" coverablelines="37" totallines="68" coveredbranches="0" totalbranches="0" />
+    <class name="HomingStrategy" coveredlines="12" coverablelines="12" totallines="24" coveredbranches="0" totalbranches="0" />
+    <class name="LastEnemyStrategy" coveredlines="28" coverablelines="31" totallines="44" coveredbranches="0" totalbranches="0" />
+    <class name="LivesDisplay" coveredlines="0" coverablelines="30" totallines="64" coveredbranches="0" totalbranches="0" />
+    <class name="ObjectPooler" coveredlines="73" coverablelines="76" totallines="152" coveredbranches="0" totalbranches="0" />
+    <class name="Projectile" coveredlines="35" coverablelines="51" totallines="97" coveredbranches="0" totalbranches="0" />
+    <class name="ProjectileData" coveredlines="8" coverablelines="8" totallines="16" coveredbranches="0" totalbranches="0" />
+    <class name="SpinStrategy" coveredlines="15" coverablelines="15" totallines="31" coveredbranches="0" totalbranches="0" />
+    <class name="SpriteLoader" coveredlines="21" coverablelines="47" totallines="91" coveredbranches="0" totalbranches="0" />
+    <class name="StrongestEnemyStrategy" coveredlines="28" coverablelines="31" totallines="44" coveredbranches="0" totalbranches="0" />
+    <class name="Tower" coveredlines="26" coverablelines="127" totallines="237" coveredbranches="0" totalbranches="0" />
+    <class name="TowerAnimator" coveredlines="0" coverablelines="48" totallines="87" coveredbranches="0" totalbranches="0" />
+    <class name="TowerData" coveredlines="14" coverablelines="14" totallines="54" coveredbranches="0" totalbranches="0" />
+    <class name="TowerFactory" coveredlines="27" coverablelines="55" totallines="105" coveredbranches="0" totalbranches="0" />
+    <class name="TowerPlacer" coveredlines="0" coverablelines="93" totallines="158" coveredbranches="0" totalbranches="0" />
+    <class name="TowerRangeDisplay" coveredlines="0" coverablelines="37" totallines="57" coveredbranches="0" totalbranches="0" />
+    <class name="Utility" coveredlines="12" coverablelines="49" totallines="115" coveredbranches="0" totalbranches="0" />
+    <class name="UtilityLibrary" coveredlines="0" coverablelines="6" totallines="22" coveredbranches="0" totalbranches="0" />
+    <class name="WaveData" coveredlines="3" coverablelines="3" totallines="9" coveredbranches="0" totalbranches="0" />
+    <class name="WaveDisplay" coveredlines="0" coverablelines="30" totallines="64" coveredbranches="0" totalbranches="0" />
+    <class name="WaveManager" coveredlines="0" coverablelines="51" totallines="72" coveredbranches="0" totalbranches="0" />
+    <class name="WeakestEnemyStrategy" coveredlines="28" coverablelines="31" totallines="44" coveredbranches="0" totalbranches="0" />
+  </assembly>
+  <assembly name="Assembly-CSharp-Editor">
+    <class name="AStarCoverageTests" coveredlines="75" coverablelines="75" totallines="123" coveredbranches="0" totalbranches="0" />
+    <class name="AStarNodeTests" coveredlines="13" coverablelines="13" totallines="29" coveredbranches="0" totalbranches="0" />
+    <class name="EnemyCoverageTests" coveredlines="64" coverablelines="66" totallines="107" coveredbranches="0" totalbranches="0" />
+    <class name="EnumTests" coveredlines="14" coverablelines="14" totallines="27" coveredbranches="0" totalbranches="0" />
+    <class name="ObjectPoolerAndHomingCoverageTests" coveredlines="63" coverablelines="63" totallines="104" coveredbranches="0" totalbranches="0" />
+    <class name="ProjectileCoverageTests" coveredlines="39" coverablelines="39" totallines="72" coveredbranches="0" totalbranches="0" />
+    <class name="ScriptableObjectDefaultsTests" coveredlines="44" coverablelines="44" totallines="65" coveredbranches="0" totalbranches="0" />
+    <class name="SpriteLoaderAndGameManagerCoverageTests" coveredlines="55" coverablelines="55" totallines="83" coveredbranches="0" totalbranches="0" />
+    <class name="StrategiesAndEventsCoverageTests" coveredlines="118" coverablelines="126" totallines="180" coveredbranches="0" totalbranches="0" />
+    <class name="TowerFactoryCoverageTests" coveredlines="56" coverablelines="56" totallines="76" coveredbranches="0" totalbranches="0" />
+    <class name="UtilityClassesCoverageTests" coveredlines="25" coverablelines="25" totallines="56" coveredbranches="0" totalbranches="0" />
+    <class name="UtilityTests" coveredlines="18" coverablelines="18" totallines="44" coveredbranches="0" totalbranches="0" />
+  </assembly>
+</coverage>

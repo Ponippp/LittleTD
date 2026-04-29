@@ -198,12 +198,12 @@ public class AStar : MonoBehaviour
     {
         return new Vector3(node.x + _gridOriginPosition.x, node.y + _gridOriginPosition.y, 0f);
     }
-    private Vector3Int GetIntWorldPos(AStarNode node)
-    {
-        int x = Mathf.FloorToInt(node.x + _gridOriginPosition.x);
-        int y = Mathf.FloorToInt(node.y + _gridOriginPosition.y);
-        return new Vector3Int(x, y, 0); // Assuming z = 0 for 2D tilemaps
-    }
+    // private Vector3Int GetIntWorldPos(AStarNode node)
+    // {
+    //     int x = Mathf.FloorToInt(node.x + _gridOriginPosition.x);
+    //     int y = Mathf.FloorToInt(node.y + _gridOriginPosition.y);
+    //     return new Vector3Int(x, y, 0); // Assuming z = 0 for 2D tilemaps
+    // }
 
     //===================================================================================================================
     // GET NODES
@@ -283,11 +283,11 @@ public class AStar : MonoBehaviour
         node.aStarState = AStarState.CLOSED;
         if (_debuggingActive) SetNodeDebugTextColor(node, Color.gray);
     }
-    private bool PathToNeighborIsShorter(AStarNode current, AStarNode neighbor, AStarNode targetNode)
-    {
-        if (neighbor.F_cost() > current.g_cost + GetNodeG_Cost(neighbor, current) + GetNodeH_Cost(neighbor, targetNode)) return true;
-        return false;
-    }
+    // private bool PathToNeighborIsShorter(AStarNode current, AStarNode neighbor, AStarNode targetNode)
+    // {
+    //     if (neighbor.F_cost() > current.g_cost + GetNodeG_Cost(neighbor, current) + GetNodeH_Cost(neighbor, targetNode)) return true;
+    //     return false;
+    // }
     private int GetNodeG_Cost(AStarNode node, AStarNode startNode)
     {
         if (node == null || startNode == null) return -1;
@@ -351,34 +351,34 @@ public class AStar : MonoBehaviour
     //===================================================================================================================
     // SET NODES
     //===================================================================================================================
-    private void SetStartingNode(AStarNode node)
-    {
-        // GUARD
-        if (node == null || node.aStarState == AStarState.PERMA_UNTRAVERSABLE || node.aStarState == AStarState.CURRENTLY_UNTRAVERSABLE) return;
-        // RESET PREVIOUS STARTNODE COLOR
-        if (_startNode != null) if (_debuggingActive) SetNodeDebugTextColor(_startNode, Color.white);
-        // SET NEW STARTNODE COLOR
-        if (_debuggingActive) SetNodeDebugTextColor(node, Color.blue);
-        _startNode = node;
-    }
-    public void SetStartingNode(Vector3 pos)
-    {
-        SetStartingNode(GetGridNode(pos));
-    }
-    private void SetTargetNode(AStarNode node)
-    {
-        // GUARD
-        if (node == null || node.aStarState == AStarState.PERMA_UNTRAVERSABLE || node.aStarState == AStarState.CURRENTLY_UNTRAVERSABLE) return;
-        // RESET PREVIOUS TARGETNODE COLOR
-        if (_targetNode != null) if (_debuggingActive) SetNodeDebugTextColor(_targetNode, Color.white);
-        // SET NEW TARGETNODE COLOR
-        if (_debuggingActive) SetNodeDebugTextColor(node, Color.red);
-        _targetNode = node;
-    }
-    public void SetTargetNode(Vector3 pos)
-    {
-        SetTargetNode(GetGridNode(pos));
-    }
+    // private void SetStartingNode(AStarNode node)
+    // {
+    //     // GUARD
+    //     if (node == null || node.aStarState == AStarState.PERMA_UNTRAVERSABLE || node.aStarState == AStarState.CURRENTLY_UNTRAVERSABLE) return;
+    //     // RESET PREVIOUS STARTNODE COLOR
+    //     if (_startNode != null) if (_debuggingActive) SetNodeDebugTextColor(_startNode, Color.white);
+    //     // SET NEW STARTNODE COLOR
+    //     if (_debuggingActive) SetNodeDebugTextColor(node, Color.blue);
+    //     _startNode = node;
+    // }
+    // public void SetStartingNode(Vector3 pos)
+    // {
+    //     SetStartingNode(GetGridNode(pos));
+    // }
+    // private void SetTargetNode(AStarNode node)
+    // {
+    //     // GUARD
+    //     if (node == null || node.aStarState == AStarState.PERMA_UNTRAVERSABLE || node.aStarState == AStarState.CURRENTLY_UNTRAVERSABLE) return;
+    //     // RESET PREVIOUS TARGETNODE COLOR
+    //     if (_targetNode != null) if (_debuggingActive) SetNodeDebugTextColor(_targetNode, Color.white);
+    //     // SET NEW TARGETNODE COLOR
+    //     if (_debuggingActive) SetNodeDebugTextColor(node, Color.red);
+    //     _targetNode = node;
+    // }
+    // public void SetTargetNode(Vector3 pos)
+    // {
+    //     SetTargetNode(GetGridNode(pos));
+    // }
 
     //===================================================================================================================
     // PATH
@@ -475,46 +475,6 @@ public class AStar : MonoBehaviour
             Destroy(node.g_cost_text);
             Destroy(node.h_cost_text);
         }
-    }
-
-    //===================================================================================================================
-    // ALGO MODS
-    //===================================================================================================================
-    public int CostOfDiagonal
-    {
-        set { _costOfDiagonal = value; }
-    }
-    public int CostOfHorizontal
-    {
-        set { _costOfHorizontal = value; }
-    }
-    public int WeightOfGCost
-    {
-        set { _weightOfGCost = value; }
-    }
-    public int WeightOfHCost
-    {
-        set { _weightOfHCost = value; }
-    }
-
-    //===================================================================================================================
-    // ASTAR DEBUG PREFERENCES
-    //===================================================================================================================
-    public bool RunAStarInstantly
-    {
-        set { _runAStarInstantly = value; }
-    }
-    public float EachNeighborCheckDelay
-    {
-        set { _eachNeighborCheckDelay = value; }
-    }
-    public float EachCheckDelay
-    {
-        set { _eachCheckDelay = value; }
-    }
-    public bool DebuggingActive
-    {
-        set { _debuggingActive = value; }
     }
 
 }
