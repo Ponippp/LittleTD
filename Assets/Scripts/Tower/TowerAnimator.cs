@@ -13,7 +13,7 @@ public class TowerAnimator : MonoBehaviour
 
     private void Awake()
     {
-        tower = GetComponentInParent<Tower>();
+        tower = GetComponentInParent<Tower>(); //refers to parent object in unity editor
         if (tower == null) Debug.LogError("[TowerAnimator] No Tower component found on this GameObject.");
     }
 
@@ -32,7 +32,7 @@ public class TowerAnimator : MonoBehaviour
         shootTimer = shootAnimationTime;
     }
 
-    private void Start() => TryLoadSprites();
+    private void Start() => TryLoadSprites(); //try to load sprites on start
 
     private void Update()
     {
@@ -63,7 +63,7 @@ public class TowerAnimator : MonoBehaviour
         if (idleSprites.Count > 0) spritesLoaded = true;
     }
 
-    private List<Sprite> ResolveActiveSet()
+    private List<Sprite> ResolveActiveSet() //each tower sprite (at every angle) has a shoot and idle sprite (shootSprite is cocked back a bit)
     {
         if (shootTimer > 0f) return shootSprites;
         return idleSprites;

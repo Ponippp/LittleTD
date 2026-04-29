@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 using TMPro;
 
-public static class Utility
+public static class Utility //unlike utilityLibrary, it's static so theres one immutable instance
 {
 
     //use layer masks instead of conditionals for performace. We could search all game objects, and say 

@@ -10,7 +10,7 @@ public class TowerPlacer : MonoBehaviour
     private Tower _ghostTower;
     private AStar _astar;
     private Camera _mainCamera;
-    private Vector3Int _lastGridPos = new Vector3Int(-999, -999, -999);
+    private Vector3Int _lastGridPos = new Vector3Int(-999, -999, -999); //arbitrary position outside of map that astar would never give as the result
     private bool _lastValidity = false;
 
     private void Awake()
@@ -20,7 +20,7 @@ public class TowerPlacer : MonoBehaviour
 
     private void Start()
     {
-        _astar = FindAnyObjectByType<AStar>();
+        _astar = FindAnyObjectByType<AStar>(); //theres only one astar object, the algo itself
         if (_astar == null) Debug.LogError("[TowerPlacer] AStar component not found in scene.");
     }
 
@@ -33,10 +33,10 @@ public class TowerPlacer : MonoBehaviour
             UpdateGhostPosition();
 
             Vector3Int currentGridPos = GameManager.instance.GetFloorTilemap().WorldToCell(_ghostTower.transform.position);
-            if (currentGridPos != _lastGridPos)
+            if (currentGridPos != _lastGridPos) //makes sure that the tile we're hovering a ghost tower over is a valid tile to place a tower
             {
                 _lastGridPos = currentGridPos;
-                _lastValidity = CheckPlacementValidity();
+                _lastValidity = CheckPlacementValidity(); //runs Astar
             }
 
             _ghostTower.SetColor(_lastValidity ? Color.white : Color.red);
